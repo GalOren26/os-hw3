@@ -92,7 +92,7 @@ int main(int argc, char* argv[])
 		main_wait,
 		thread_wait
 	};
-	Createmultiplethreads(num_of_threads, num_of_lines, end_of_lines, &params);
+	//Createmultiplethreads(num_of_threads, num_of_lines, end_of_lines, &params);
 	free(dest_path);
 	free(end_of_lines);
 	return SUCCESS;

@@ -5,6 +5,7 @@
 #define __Hard_coded_data 
 #include "HardCodedData.h"
 #include <Windows.h>
+
 #endif
 
 
@@ -75,16 +76,21 @@ int FreeHandelsArray(HANDLE* handels, int len);
 
 //Warp for signaleobject if not succed return correspnding error code 
 int WaitForSingleObjectWrap(HANDLE handle, uli time);
-//------------------semphoros
+//------------------semphoros and mutex-- 
 //Warp for  CreateSemphore if not succed return correspnding error code 
-int CreateSemphoreWrap(int num_of_therads,HANDLE * OUT semphore  );
+int CreateSemphoreWrap(int max_count,HANDLE * OUT semphore , int initialcount);
+//Warp for  CreateMutex if not succed return correspnding error code 
+int CreateMutexWrap(BOOL bInitialOwner, HANDLE* OUT mutex);
 //Warp for  OpenSemphore if not succed return correspnding error code 
 int OpenSemphoreWrap( HANDLE * OUT semphore, const char* name);
+int ReleaseSemphoreWrap(HANDLE* semphore, int lReleaseCount);
+
+int ReleaseMutexeWrap(HANDLE* mutex);
 
 
 //------ prime number functions 
 
-int FindPrimeComponets(int, int* OUT prime_components);
+int FindPrimeComponets(int prime , int* OUT prime_components);
 int sort(int* prime_components);
 int FormatNumberString(int* prime_components, char* OUT str);
 
@@ -94,9 +100,9 @@ int FormatNumberString(int* prime_components, char* OUT str);
 
 
 //memory mengment 
-//int setup_memory_menagment(MemoryTracker* OUT MemTracker);
-//int push_element_memory_mangment(MemoryTracker*  MemTracker, MemoryTracker element);
-//int FreeAll(MemoryTracker * memory_traker);
+//int setup_memory_menagment(memorytracker* out memtracker);
+//int push_element_memory_mangment(memorytracker*  memtracker, memorytracker element);
+//int freeall(memorytracker * memory_traker);
 
 
 

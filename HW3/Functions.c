@@ -207,17 +207,33 @@
 		}
 		return SUCCESS;
 	}
-	int CreateSemphoreWrap(int num_of_therads, HANDLE* OUT semphore)
+	int CreateSemphoreWrap(int max_count, HANDLE* OUT semphore,int initialcount)
 	{
 		*semphore = CreateSemaphoreA(
 			NULL,	/* Default security attributes */
-			0,		/* Initial Count - all slots are empty */
-			num_of_therads,		/* Maximum Count */
+			initialcount,		/* Initial Count - all slots are empty */
+			max_count,		/* Maximum Count */
 			NULL); 
 
 		if (*semphore == NULL)
 		{
 			printf("problem with create semphore %d", GetLastError());
+			return PROBLEM_CRATE_SEMPHORE;
+		}
+		return SUCCESS;
+	}
+
+	int CreateMutexWrap(BOOL bInitialOwner, HANDLE* OUT mutex )
+	{
+
+		*mutex = CreateMutexA(
+			NULL,	/* Default security attributes */
+			bInitialOwner,		/* Set if the creator of the mutex is lock it after it create it.  */
+			NULL);
+
+		if (*mutex == NULL)
+		{
+			printf("problem with create mutex %d", GetLastError());
 			return PROBLEM_CRATE_SEMPHORE;
 		}
 		return SUCCESS;
@@ -238,7 +254,30 @@
 		return SUCCESS;
 	}
 
-	int FindPrimeComponets(int, int* OUT prime_components)
+	int ReleaseSemphoreWrap(HANDLE* semphore, int lReleaseCount)
+	{
+		int wait_code = ReleaseSemaphore(*semphore, lReleaseCount, NULL);
+		if (wait_code == NULL)
+		{
+			printf("problem with realease semphore %d", GetLastError());
+			return PROBLEM_CRATE_SEMPHORE;
+		}
+		return SUCCESS;
+	}
+
+	int ReleaseMutexeWrap(HANDLE* mutex)
+	{
+		int wait_code = ReleaseMutex(*mutex);
+		if (wait_code == NULL)
+		{
+			printf("problem with realease Mutex %d", GetLastError());
+			return ERROR_RELEASE_MUTEX;
+		}
+		return SUCCESS;
+	}
+
+
+	int FindPrimeComponets(int prime , int* OUT prime_components)
 	{
 		return 0;
 	}

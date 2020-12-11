@@ -1,0 +1,136 @@
+﻿  Functions.c
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\Functions.h(85,63): error C2085: 'OpenSemphoreWrap': not in formal parameter list
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\Functions.h(90,62): error C2085: 'FindPrimeComponets': not in formal parameter list
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\Functions.h(91,32): error C2085: 'sort': not in formal parameter list
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\Functions.h(92,61): error C2085: 'FormatNumberString': not in formal parameter list
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\ucrt\assert.h(30,10): error C2085: '_wassert': not in formal parameter list
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\Functions.c(10,1): error C2082: redefinition of formal parameter 'CheakArgs'
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\Functions.c(10,1): error C2143: syntax error: missing ';' before '{'
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\Functions.c(11,11): error C2065: 'argc': undeclared identifier
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\Functions.c(16,11): error C2065: 'argc': undeclared identifier
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\Functions.c(226,6): error C2084: function 'int CreateMutexWrap(BOOL,HANDLE *)' already has a body
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\Functions.h(83): message : see previous definition of 'CreateMutexWrap'
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\Functions.c(341,27): error C2065: 'ENCRYPT': undeclared identifier
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\Functions.c(381,23): error C2065: 'ENCRYPT': undeclared identifier
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\Functions.c(386,23): error C2065: 'DECRYPT': undeclared identifier
+  Lock.c
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\Functions.h(85,63): error C2085: 'OpenSemphoreWrap': not in formal parameter list
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\Functions.h(90,62): error C2085: 'FindPrimeComponets': not in formal parameter list
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\Functions.h(91,32): error C2085: 'sort': not in formal parameter list
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\Functions.h(92,61): error C2085: 'FormatNumberString': not in formal parameter list
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\Lock.h(12,1): error C2143: syntax error: missing ';' before '}'
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\Lock.h(12,7): error C2085: 'Lock': not in formal parameter list
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\Lock.h(15,1): error C2061: syntax error: identifier 'Lock'
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\Lock.h(20,20): error C2143: syntax error: missing ')' before '*'
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\Lock.h(20,20): error C2143: syntax error: missing '{' before '*'
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\Lock.h(20,26): error C2059: syntax error: ')'
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\Lock.c(3,5): error C2143: syntax error: missing '{' before '*'
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\Lock.c(5,6): error C2065: 'Lock': undeclared identifier
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\Lock.c(5,16): error C2065: 'my_lock': undeclared identifier
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\Lock.c(5,39): error C2065: 'Lock': undeclared identifier
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\Lock.c(5,41): warning C4047: '=': 'int' differs in levels of indirection from 'void *'
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\Lock.c(5,41): error C2106: '=': left operand must be l-value
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\Lock.c(6,9): error C2065: 'my_lock': undeclared identifier
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\Lock.c(6,11): error C2223: left of '->ErrorValue' must point to struct/union
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\Lock.c(6,45): error C2065: 'my_lock': undeclared identifier
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\Lock.c(6,38): warning C4022: 'CheckAlocation': pointer mismatch for actual parameter 1
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\Lock.c(7,13): error C2065: 'my_lock': undeclared identifier
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\Lock.c(7,15): error C2223: left of '->ErrorValue' must point to struct/union
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\Lock.c(8,17): error C2065: 'my_lock': undeclared identifier
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\Lock.c(8,17): warning C4047: 'return': 'int *' differs in levels of indirection from 'int'
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\Lock.c(9,9): error C2065: 'my_lock': undeclared identifier
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\Lock.c(9,11): error C2223: left of '->readers' must point to struct/union
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\Lock.c(10,9): error C2065: 'my_lock': undeclared identifier
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\Lock.c(10,11): error C2223: left of '->ErrorValue' must point to struct/union
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\Lock.c(10,55): error C2065: 'my_lock': undeclared identifier
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\Lock.c(10,57): error C2223: left of '->readers_mutex' must point to struct/union
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\Lock.c(10,39): error C2198: 'CreateMutexWrap': too few arguments for call
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\Lock.c(11,13): error C2065: 'my_lock': undeclared identifier
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\Lock.c(11,15): error C2223: left of '->ErrorValue' must point to struct/union
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\Lock.c(12,17): error C2065: 'my_lock': undeclared identifier
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\Lock.c(12,17): warning C4047: 'return': 'int *' differs in levels of indirection from 'int'
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\Lock.c(13,9): error C2065: 'my_lock': undeclared identifier
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\Lock.c(13,11): error C2223: left of '->ErrorValue' must point to struct/union
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\Lock.c(13,67): error C2065: 'my_lock': undeclared identifier
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\Lock.c(13,69): error C2223: left of '->asset_in_use' must point to struct/union
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\Lock.c(13,82): warning C4022: 'CreateSemphoreWrap': pointer mismatch for actual parameter 2
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\Lock.c(13,42): error C2198: 'CreateSemphoreWrap': too few arguments for call
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\Lock.c(14,13): error C2065: 'my_lock': undeclared identifier
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\Lock.c(14,15): error C2223: left of '->ErrorValue' must point to struct/union
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\Lock.c(15,17): error C2065: 'my_lock': undeclared identifier
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\Lock.c(15,17): warning C4047: 'return': 'int *' differs in levels of indirection from 'int'
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\Lock.c(16,9): error C2065: 'my_lock': undeclared identifier
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\Lock.c(16,11): error C2223: left of '->ErrorValue' must point to struct/union
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\Lock.c(16,55): error C2065: 'my_lock': undeclared identifier
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\Lock.c(16,57): error C2223: left of '->turnstile' must point to struct/union
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\Lock.c(16,39): error C2198: 'CreateMutexWrap': too few arguments for call
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\Lock.c(17,13): error C2065: 'my_lock': undeclared identifier
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\Lock.c(17,15): error C2223: left of '->ErrorValue' must point to struct/union
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\Lock.c(18,17): error C2065: 'my_lock': undeclared identifier
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\Lock.c(18,17): warning C4047: 'return': 'int *' differs in levels of indirection from 'int'
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\Lock.c(21,20): error C2143: syntax error: missing ')' before '*'
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\Lock.c(21,20): error C2143: syntax error: missing '{' before '*'
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\Lock.c(21,26): error C2059: syntax error: ')'
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\Lock.c(22,1): error C2054: expected '(' to follow 'lock'
+  ThrredFuncs.c
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\Functions.h(85,63): error C2085: 'OpenSemphoreWrap': not in formal parameter list
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\Functions.h(90,62): error C2085: 'FindPrimeComponets': not in formal parameter list
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\Functions.h(91,32): error C2085: 'sort': not in formal parameter list
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\Functions.h(92,61): error C2085: 'FormatNumberString': not in formal parameter list
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\ThrredFuncs.h(16,15): error C2085: 'parssing_data': not in formal parameter list
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\ThrredFuncs.h(25,49): error C2085: 'CreateThreadSimple': not in formal parameter list
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\ucrt\assert.h(30,10): error C2085: '_wassert': not in formal parameter list
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\ThrredFuncs.c(153,2): error C2085: 'CreateThreadSimple': not in formal parameter list
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\ThrredFuncs.c(153,2): error C2143: syntax error: missing ';' before '{'
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\ThrredFuncs.c(155,30): error C2065: 'p_start_routine': undeclared identifier
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\ThrredFuncs.c(155,30): warning C4047: '==': 'void *' differs in levels of indirection from 'int'
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\ThrredFuncs.c(162,26): error C2065: 'p_thread_id': undeclared identifier
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\ThrredFuncs.c(162,26): warning C4047: '==': 'void *' differs in levels of indirection from 'int'
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\ThrredFuncs.c(169,18): error C2065: 'thread_handle': undeclared identifier
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\ThrredFuncs.c(169,3): error C2100: illegal indirection
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\ThrredFuncs.c(172,19): error C2065: 'p_start_routine': undeclared identifier
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\ThrredFuncs.c(172,19): warning C4047: 'function': 'LPTHREAD_START_ROUTINE' differs in levels of indirection from 'int'
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\ThrredFuncs.c(172,4): warning C4024: 'CreateThread': different types for formal and actual parameter 3
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\ThrredFuncs.c(173,23): error C2065: 'p_thread_parameters': undeclared identifier
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\ThrredFuncs.c(173,4): warning C4022: 'CreateThread': pointer mismatch for actual parameter 4
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\ThrredFuncs.c(175,15): error C2065: 'p_thread_id': undeclared identifier
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\ThrredFuncs.c(175,15): warning C4047: 'function': 'LPDWORD' differs in levels of indirection from 'int'
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\ThrredFuncs.c(175,4): warning C4024: 'CreateThread': different types for formal and actual parameter 6
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\ThrredFuncs.c(175,16): warning C4047: '=': 'int' differs in levels of indirection from 'HANDLE'
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\ThrredFuncs.c(176,21): error C2065: 'thread_handle': undeclared identifier
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\ThrredFuncs.c(176,28): warning C4047: '==': 'int' differs in levels of indirection from 'void *'
+  main.c
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\Functions.h(85,63): error C2085: 'OpenSemphoreWrap': not in formal parameter list
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\Functions.h(90,62): error C2085: 'FindPrimeComponets': not in formal parameter list
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\Functions.h(91,32): error C2085: 'sort': not in formal parameter list
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\Functions.h(92,61): error C2085: 'FormatNumberString': not in formal parameter list
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\ThrredFuncs.h(16,15): error C2085: 'parssing_data': not in formal parameter list
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\ThrredFuncs.h(25,49): error C2085: 'CreateThreadSimple': not in formal parameter list
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\main.c(15,1): error C2085: 'main': not in formal parameter list
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\main.c(15,1): error C2143: syntax error: missing ';' before '{'
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\main.c(17,16): error C2065: 'argc': undeclared identifier
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\main.c(26,26): error C2065: 'argv': undeclared identifier
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\main.c(26,28): error C2109: subscript requires array or pointer type
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\main.c(27,32): error C2065: 'argv': undeclared identifier
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\main.c(27,34): error C2109: subscript requires array or pointer type
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\main.c(27,27): error C2198: 'CheakIsAnumber': too few arguments for call
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\main.c(28,32): error C2065: 'argv': undeclared identifier
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\main.c(28,34): error C2109: subscript requires array or pointer type
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\main.c(28,27): error C2198: 'CheakIsAnumber': too few arguments for call
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\main.c(34,32): error C2065: 'argv': undeclared identifier
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\main.c(34,34): error C2109: subscript requires array or pointer type
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\main.c(34,47): warning C4133: 'function': incompatible types - from 'int *' to 'char *'
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\main.c(34,27): error C2198: 'CheckOperation': too few arguments for call
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\main.c(40,21): error C2065: 'argv': undeclared identifier
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\main.c(40,23): error C2109: subscript requires array or pointer type
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\main.c(40,16): error C2198: 'atoi': too few arguments for call
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\main.c(41,32): error C2065: 'argv': undeclared identifier
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\main.c(41,34): error C2109: subscript requires array or pointer type
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\main.c(41,27): error C2198: 'atoi': too few arguments for call
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\main.c(77,31): error C2198: 'CreateSemphoreWrap': too few arguments for call
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\main.c(78,31): error C2198: 'CreateSemphoreWrap': too few arguments for call
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\main.c(85,16): error C2065: 'parssing_data': undeclared identifier
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\main.c(85,16): error C2146: syntax error: missing ';' before identifier 'params'
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\main.c(85,23): error C2065: 'params': undeclared identifier
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\main.c(85,25): error C2059: syntax error: '{'
+  Generating Code...

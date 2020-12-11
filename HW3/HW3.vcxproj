@@ -21,10 +21,12 @@
   <ItemGroup>
     <ClInclude Include="Functions.h" />
     <ClInclude Include="HardCodedData.h" />
+    <ClInclude Include="Lock.h" />
     <ClInclude Include="ThrredFuncs.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Functions.c" />
+    <ClCompile Include="Lock.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="ThrredFuncs.c" />
   </ItemGroup>

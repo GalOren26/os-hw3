@@ -16,8 +16,8 @@ typedef struct
 }parssing_data;
 
 
-
-int Createmultiplethreads(int num_of_threads, uli num_of_lines, uli* end_of_lines, parssing_data* params);
+//
+//int Createmultiplethreads(int num_of_threads, uli num_of_lines, uli* end_of_lines, parssing_data* params);
 
 //took from the Recritation, the wrap of create threads function.
 static int CreateThreadSimple(LPTHREAD_START_ROUTINE p_start_routine,
