@@ -12,6 +12,53 @@ DWORD WINAPI read(LPVOID lpParam)
 	params = (parssing_data*)lpParam;
 	HANDLE input_file;
 	printf("Hello from thread num %d, I am reader \n", GetCurrentThreadId());
+
+
+	/// ---------TO-DO ---------
+	/// allocate array_poistions of size of number lines --ret_val1=cheakaloocation () if ! success return ret_val1 ; free when not neede 
+	/// -for i in range(params->number_of_lines):
+	///			pop ( params->fifo) 
+	/// openfilewarp (params->input_path); cheak forfailure 
+	/// allocate array numbers  of numbers(int) size  of lines ; 
+	/// 
+	///	-for i in range(params->number_of_lines): 
+	///		setfilepointerwrap(arr[i]);
+	///		char* line;  
+	///		lock_read(params_lock)
+	///		readline(&line) 
+	/// 	realse_read(params_lock);
+	///		cheakisnumber(line) 
+	///		numbers[i]= atoi(line) 
+	///		free (array_poistions) ; 
+	/// 
+	/// array of char *  string of strings 
+	///	for i in range(params->number_of_lines):  
+	///		FindPrimeComponets ()
+	///		formatstringpeime() 
+	///		strings.append(string)  
+	///	
+	/// 	----expend file ---
+	/// var=  setfilepointer (end ) -parm that tak the sdistance from start 
+	/// set file pointer (end , size (all the strigns )
+	/// for i in range(params->number_of_lines):  
+	///		lock_write () 
+	///		writefilewrap
+	///		relasewrite 
+	/// 
+	/// 
+	/// 
+	///  
+	///		
+	/// 
+	/// 
+	/// 
+	/// 
+	/// 
+	/// 
+	/// 
+	/// 
+	/// 
+
 	//if (params->lock->readers == 1)
 	//{
 	//	release_read(params->lock);
