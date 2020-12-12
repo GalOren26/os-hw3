@@ -4,6 +4,7 @@
 #include "HardCodedData.h"
 #include <Windows.h>
 #include "Lock.h"
+
 typedef struct
 {
 	uli start_pos;

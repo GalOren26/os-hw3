@@ -4,10 +4,10 @@
 
 // function to create a queue of a given capacity(number of lines in the file)
 // It initializes size of queue as 0 
-struct Queue* InitializeQueue(unsigned int capacity)
+ Queue* InitializeQueue(unsigned int capacity)
 {
-    struct Queue* queue = (struct Queue*)malloc(
-        sizeof(struct Queue));
+     Queue* queue = (struct Queue*)malloc(
+        sizeof( Queue));
     if (NULL == queue)
     {
         printf("memory allocation failed");
@@ -38,13 +38,13 @@ int isFull(struct Queue* queue)
 }
 
 // Queue is empty when size is 0 
-int isEmpty(struct Queue* queue)
+int isEmpty( Queue* queue)
 {
     return (queue->size == 0);
 }
 // Function to add an item to the queue. 
 // It changes rear and size 
-void push(struct Queue* queue, int item)
+void push( Queue* queue, int item)
 {
     if (isFull(queue))
         return;
@@ -63,7 +63,7 @@ void push(struct Queue* queue, int item)
 }
 // Function to remove an item from queue.
 // It changes front and size 
-int pop(struct Queue* queue)
+int pop( Queue* queue)
 {
     if (isEmpty(queue))
         return INT_MIN;
@@ -81,7 +81,7 @@ int pop(struct Queue* queue)
 }
 
 // Function to get front of queue 
-int Top(struct Queue* queue)
+int Top( Queue* queue)
 {
     if (isEmpty(queue))
         return INT_MIN;

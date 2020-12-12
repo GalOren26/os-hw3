@@ -29,7 +29,6 @@
     <ClCompile Include="Functions.c" />
     <ClCompile Include="Lock.c" />
     <ClCompile Include="main.c" />
-    <ClCompile Include="more_functions.c" />
     <ClCompile Include="queue.c" />
     <ClCompile Include="ThreadFuncs.c" />
   </ItemGroup>

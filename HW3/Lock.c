@@ -71,6 +71,15 @@ void lock_write(Lock* lock)
 		return;
 
 }
+void release_write(Lock* lock)
+{
+	lock->ErrorValue = ReleaseMutexeWrap(lock->turnstile);
+	if (lock->ErrorValue != SUCCESS)
+		return;
+	lock->ErrorValue = ReleaseSemphoreWrap(lock->asset_in_use, 1);
+	if (lock->ErrorValue != SUCCESS)
+		return;
+}
 int DestroyLock(Lock** lock)
 {
 	int ret_val = 0; 

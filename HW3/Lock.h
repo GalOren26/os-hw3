@@ -22,6 +22,7 @@ must be Made by the same thread*/
 void release_read(Lock* lock);
 
 void lock_write(Lock* lock);
+void release_write(Lock* lock);
 int DestroyLock(Lock** lock);
 
 #endif
