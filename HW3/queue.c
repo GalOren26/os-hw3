@@ -101,7 +101,7 @@ int fill_fifo(Queue* queue, HANDLE input_file, int num_of_lines)
         if (ret_val != SUCCESS)
             return ret_val;
         uli num = atoi(line);
-        printf("%s", line);
+        /*printf("%s", line);*/
         free(line);
         push(queue, num);
     }

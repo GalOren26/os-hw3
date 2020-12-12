@@ -174,79 +174,6 @@ return SUCCESS;
 			return NO_NEW_LINE;
 	}
 
-	//int read_number_of_line_and_end_of_lines(HANDLE file, PDWORD OUT num_of_lines_out, OUT uli** p_end_of_lines_out)
-	//{
-	//	/*return the  number of line in file  and the places in the file of each  end of line */
-	//	int ret_val = 0;
-	//	ret_val=CheakHandle(file);
-	//	if (ret_val != SUCCESS)
-	//		return ret_val;
-	//	// cheak_file_size_in_order to read file.
-	//	LARGE_INTEGER  len_li;
-	//	if (GetFileSizeEx(file, &len_li) == 0)
-	//	{
-	//		printf("empty file . error code %d", GetLastError());
-	//		return EMPTY_FILE;
-	//	}
-	//	if (len_li.u.HighPart != 0)
-	//	{	//asume file not more than 4gb 
-	//		printf("File is Too big need to be less then 4 GB !");
-	//		return FILE_IS_TOO_BIG;
-	//	}
-	//	DWORD len = len_li.u.LowPart;
-	//	char* my_file_buff = 0;
-	//	my_file_buff = (char*)calloc(len, sizeof(char));
-	//	ret_val=CheckAlocation(my_file_buff);
-	//	if (ret_val != SUCCESS&& my_file_buff==0)
-	//		return ret_val;
-	//	ret_val=ReadFileWrap(len, file, my_file_buff);
-	//	if (ret_val != SUCCESS)
-	//	{
-	//		free(my_file_buff);
-	//		return ret_val;
-	//	}
-	//	DWORD num_of_lines = 0; 
-	//	/* allocatre array to store end of lines, size bounded by the size of file and after fill will be shrink.*/
-	//	uli* p_end_of_lines_temp = calloc( len, sizeof(uli));
-	//	ret_val =CheckAlocation(p_end_of_lines_temp);
-	//	if (ret_val != SUCCESS)
-	//	{
-	//		free(my_file_buff);
-	//		return ret_val;
-	//	}
-	//	uli place = 0; 
-	//	DWORD pos_in_file;
-	//	for (pos_in_file = 0; pos_in_file < len; pos_in_file++)
-	//	{
-	//		if (my_file_buff[pos_in_file] == '\n')
-	//		{
-	//			num_of_lines++;
-	//			p_end_of_lines_temp[place++] = pos_in_file;
-	//		}
-	//	}
-	//	if (my_file_buff[len - 1] != '\n')// cheak if last line is without new line
-	//	{
-	//		num_of_lines++;
-	//		p_end_of_lines_temp[place++] = pos_in_file-1;
-
-	//	}
-	//	uli* p_end_of_lines = calloc(place, sizeof(uli));
-	//	ret_val=CheckAlocation(p_end_of_lines);
-	//	if (ret_val != SUCCESS)
-	//	{
-	//		free(my_file_buff);
-	//		free(p_end_of_lines_temp);
-	//		return ret_val;
-	//	}
-	//	if (place < len)
-	//		memcpy(p_end_of_lines, p_end_of_lines_temp, sizeof(uli) *place);
-	//	free(p_end_of_lines_temp); 
-	//	free(my_file_buff);
-	//	*num_of_lines_out = num_of_lines;
-	//	*p_end_of_lines_out = p_end_of_lines;
-	//	return SUCCESS;
-	//}
-
 	int OpenFileWrap( LPCSTR str, DWORD mode,HANDLE * OUT hFile)
 	{
 		//CreateFileA wrap 
@@ -255,23 +182,6 @@ return SUCCESS;
 		return CheakHandle(*hFile);
 	}
 	
-	int FreeArray(void** arr, int len)
-	{
-		int ret_val = 0;
-		ret_val = valid_PTR(arr);
-		if (ret_val != SUCCESS)
-		{
-			return ret_val;
-		}
-		for (int i = 0; i < len;i++)
-		{
-			if (arr[i]!=NULL)
-				free(arr[i]);
-		}
-		free(arr);
-		return SUCCESS;
-	}
-
 	int CloseHandleWrap(HANDLE file)
 	{
 		//CloseHandle wrap 
@@ -282,6 +192,22 @@ return SUCCESS;
 			return FAILAD_TO_CLOSE_FILE;
 			//not exit couse try best effort to close more files. 
 		}
+		return SUCCESS;
+	}
+	int FreeArray(void** arr, int len)
+	{
+		int ret_val = 0;
+		ret_val = valid_PTR(arr);
+		if (ret_val != SUCCESS)
+		{
+			return ret_val;
+		}
+		for (int i = 0; i < len; i++)
+		{
+			if (arr[i] != NULL)
+				free(arr[i]);
+		}
+		free(arr);
 		return SUCCESS;
 	}
 	int CreateSemphoreWrap(int max_count, HANDLE* OUT semphore,int initialcount)

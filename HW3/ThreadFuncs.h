@@ -4,19 +4,19 @@
 #include "HardCodedData.h"
 #include <Windows.h>
 #include "Lock.h"
+#include "queue.h"
 
 typedef struct
 {
-	uli start_pos;
-	uli end_pos;
-	LPCSTR  output_path;
+	Queue* fifo;
 	LPCSTR input_path;
+	uli number_of_lines;
 	Lock* lock;
 }parssing_data;
 
 
-//
-//int Createmultiplethreads(int num_of_threads, uli num_of_lines, uli* end_of_lines, parssing_data* params);
+
+int Createmultiplethreads(parssing_data* p_params,uli num_of_threads);
 
 //took from the Recritation, the wrap of create threads function.
 DWORD WINAPI read(LPVOID lpParam);

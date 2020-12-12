@@ -1,23 +1,22 @@
 #include "Lock.h"
 
-int InitializeLock(int num_of_threads,Lock* OUT my_lock)
+int InitializeLock(uli num_of_threads,Lock** OUT my_lock)
 {
 	int ret_val = 0;
-	 my_lock = calloc(1, sizeof(Lock));
-	 ret_val = CheckAlocation(my_lock);
+	 (*my_lock) = calloc(1, sizeof(Lock));
+	 ret_val = CheckAlocation((*my_lock));
 	 if (ret_val != SUCCESS)
 		 return ret_val;
-	 my_lock->readers = 0;
-	 ret_val = CreateMutexWrap(FALSE, &my_lock->readers_mutex);
+	 (*my_lock)->readers = 0;
+	 ret_val = CreateMutexWrap(FALSE, &(*my_lock)->readers_mutex);
 	 if (ret_val != SUCCESS)
 		 return ret_val;
-	 ret_val = CreateSemphoreWrap(num_of_threads, &my_lock->asset_in_use, 1);
+	 ret_val = CreateSemphoreWrap(num_of_threads, &(*my_lock)->asset_in_use, 1);
 	 if (ret_val != SUCCESS)
 		 return ret_val;
-	 ret_val = CreateMutexWrap(FALSE, &my_lock->turnstile);
+	 ret_val = CreateMutexWrap(FALSE, &(*my_lock)->turnstile);
 	 if (ret_val != SUCCESS)
 		 return ret_val;
-
 	return SUCCESS;
 }
 
