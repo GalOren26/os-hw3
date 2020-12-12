@@ -1,21 +1,24 @@
 #include "Lock.h"
 
-Lock* InitializeLock(int num_of_threads)
+int InitializeLock(int num_of_threads,Lock* OUT my_lock)
 {
-	Lock* my_lock = calloc(1, sizeof(Lock));
-	my_lock->ErrorValue= CheckAlocation(my_lock);
-	if (my_lock->ErrorValue != SUCCESS)
-		return my_lock;
-	my_lock->readers = 0;
-	my_lock->ErrorValue = CreateMutexWrap(FALSE,& my_lock->readers_mutex);
-	if (my_lock->ErrorValue != SUCCESS)
-		return my_lock;
-	my_lock->ErrorValue = CreateSemphoreWrap(num_of_threads, &my_lock->asset_in_use,1);
-	if (my_lock->ErrorValue != SUCCESS)
-		return my_lock;
-	my_lock->ErrorValue = CreateMutexWrap(FALSE, &my_lock->turnstile);
-	if (my_lock->ErrorValue != SUCCESS)
-		return my_lock;
+	int ret_val = 0;
+	 my_lock = calloc(1, sizeof(Lock));
+	 ret_val = CheckAlocation(my_lock);
+	 if (ret_val != SUCCESS)
+		 return ret_val;
+	 my_lock->readers = 0;
+	 ret_val = CreateMutexWrap(FALSE, &my_lock->readers_mutex);
+	 if (ret_val != SUCCESS)
+		 return ret_val;
+	 ret_val = CreateSemphoreWrap(num_of_threads, &my_lock->asset_in_use, 1);
+	 if (ret_val != SUCCESS)
+		 return ret_val;
+	 ret_val = CreateMutexWrap(FALSE, &my_lock->turnstile);
+	 if (ret_val != SUCCESS)
+		 return ret_val;
+
+	return SUCCESS;
 }
 
 void read_lock(Lock* lock)
@@ -100,5 +103,6 @@ int DestroyLock(Lock** lock)
 	}
 	free(*lock); 
 	*lock = NULL;
+	return SUCCESS;
 }
 

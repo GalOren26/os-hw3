@@ -3,34 +3,62 @@
 #include "Functions.h"
 #include "ThreadFuncs.h"
 #include "Lock.h"
+#include "queue.h" 
 
-/*
-
-Authors – Gal Oren -206232506
-Rami Ayoub - 315478966
-Project – parllel encrypt and dycrypt  kaiser encrpytion with with syncronization of threads start togther \
-
-*/
 int main(int argc, char* argv[])
 {
-	CheakArgs(argc,5);
-	////
-	int prime = 0;
-	//we can send pointer_to prime to a function that reads the file line by line
-	//and that way to initialize prime
-	int* pointer_to_prime = &prime;
-	int* prime_components[30] = { 0 };
-	int number_of_components;
-	char* prime_factors_by_format = NULL;
-	number_of_components = FindPrimeComponets(prime, prime_components);
-	//allocate in size number_of_components*2 since we need comas to seperate between the numbers
-	prime_factors_by_format = (char*)malloc((sizeof(char)) * number_of_components * 2);
-	//this is only a temporary solution, until we decide how to handle with all the memory allocations
-	if (NULL == prime_factors_by_format) {
-		printf("memory allocation failed");
-		return -1;
+	CheakArgs(argc, 5);
+	char* input_path = argv[2];
+	int ret_val1 = 0;
+	int ret_val2 = 0;
+	HANDLE input_file;
+	ret_val1 = CheakIsAnumber(argv[3]);
+	ret_val2 = CheakIsAnumber(argv[4]);
+
+	if (ret_val1 == FALSE || ret_val2 == FALSE)
+	{
+		printf("num of lines or num of threads is not a number  :(");
+		return NOT_A_NUMBER;
 	}
-	FormatNumberString(prime_components, prime_factors_by_format, number_of_components);
+	int num_of_lines = atoi(argv[3]);
+	int num_of_threads = atoi(argv[4]);
+	Queue TasksPoistions;
+	ret_val1= InitializeQueue(num_of_lines, &TasksPoistions);
+	ret_val1= OpenFileWrap(input_path, OPEN_EXISTING, &input_file);
+	if (ret_val1 != SUCCESS)
+	{
+		return ret_val1; 
+	}
+	fill_fifo(&TasksPoistions, input_file, num_of_lines);
+	
+
+
+
+
+	//if (ret_val1 == FALSE || ret_val2 == FALSE)
+	//{
+	//	printf("num of lines or num of threads is not a number  :(");
+	//	return NOT_A_NUMBER;
+	//}
+
+	//int prime = 0;
+	////we can send pointer_to prime to a function that reads the file line by line
+	////and that way to initialize prime
+	//int* pointer_to_prime = &prime;
+	//int* prime_components[30] = { 0 };
+	//int number_of_components;
+	//char* prime_factors_by_format = NULL;
+	//number_of_components = FindPrimeComponets(prime, prime_components);
+	////allocate in size number_of_components*2 since we need comas to seperate between the numbers
+	//prime_factors_by_format = (char*)malloc((sizeof(char)) * number_of_components * 2);
+	////this is only a temporary solution, until we decide how to handle with all the memory allocations
+	//if (NULL == prime_factors_by_format) {
+	//	printf("memory allocation failed");
+	//	return -1;
+	//}
+	//FormatNumberString(prime_components, prime_factors_by_format, number_of_components);
+}
+
 
 
 	//DWORD mode = OPEN_EXISTING;
@@ -60,7 +88,7 @@ int main(int argc, char* argv[])
 	6.try to write from diffrent thread 
 	*/
 
-}
+
 
 
 

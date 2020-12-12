@@ -12,10 +12,10 @@ typedef struct  {
     int* array;
     HANDLE mutex_fifo; 
 }Queue;
- Queue* InitializeQueue(unsigned int capacity);
+int InitializeQueue(unsigned int capacity, Queue* OUT queue);
 int isFull( Queue* queue);
 int isEmpty( Queue* queue);
-void push( Queue* queue, int item);
+int push( Queue* queue, int item);
 int pop( Queue* queue);
 int Top( Queue* queue);
-
+int fill_fifo(Queue* queue, HANDLE  input_file, int num_of_lines);

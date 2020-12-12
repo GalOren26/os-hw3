@@ -23,7 +23,6 @@ DWORD WINAPI read(LPVOID lpParam);
  int CreateThreadSimple(LPTHREAD_START_ROUTINE p_start_routine,
 	LPVOID p_thread_parameters,
 	LPDWORD p_thread_id, HANDLE* OUT thread_handle);
- int Createmultiplethreads_test(parssing_data** p_params,int num_of_threads);
  //inputs:prime - the number that we want to get it's prime factors
 //	prime_component is an int* array with size 30-
 //(max prime factor is 30  couse  num <2^30)

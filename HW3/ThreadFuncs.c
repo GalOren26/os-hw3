@@ -24,7 +24,8 @@ DWORD WINAPI read(LPVOID lpParam)
 		return ret_val1;
 	}
 	char my_file_buff[100] = { 0 }; 
-	ReadFileWrap(params->end_pos, input_file, my_file_buff);
+	DWORD num_of_bytes_read;
+	ReadFileWrap(params->end_pos, input_file, my_file_buff,&num_of_bytes_read);
 	printf("%s\n\n", my_file_buff);
 	return SUCCESS;
 }
@@ -204,45 +205,6 @@ DWORD WINAPI read(LPVOID lpParam)
 		return SUCCESS;
 	}
 
- int Createmultiplethreads_test( parssing_data** p_params,int num_of_threads)
- {
-	 HANDLE* p_thread_handles = (HANDLE*)calloc(num_of_threads, sizeof(HANDLE)); // each cell in the array, contains params for thread
-	 int ret_val1 = CheckAlocation(p_thread_handles);
-	 if (ret_val1 != SUCCESS)
-	 {
-		 printf("error");
-		 return;
-	 }
-	 DWORD* p_thread_ids = (DWORD*)calloc(num_of_threads, sizeof(DWORD)); // each cell in the array, contains params for thread
-	 CheckAlocation(p_thread_ids);
-	 if (ret_val1 != SUCCESS)
-	 {
-		 printf("error");
-		 return;
-	 }
-
-	 ret_val1 = CreateThreadSimple(read, (LPVOID)p_params[0], &p_thread_ids[0], &p_thread_handles[0]);
-	 if (ret_val1 != SUCCESS)
-	 {
-		 printf("error");
-		 return;
-	 }
-	 ret_val1 = CreateThreadSimple(read, (LPVOID)p_params[1], &p_thread_ids[1], &p_thread_handles[1]);
-	 if (ret_val1 != SUCCESS)
-	 {
-		 printf("error");
-		 return;
-	 }
-
-
-	 ret_val1= WaitForMultipleObjectsWrap(num_of_threads, p_thread_handles, TIMEOUT_IN_MILLISECONDS, TRUE);
-	 if (ret_val1 != SUCCESS)
-	 {
-		 printf("error");
-		 return;
-	 }
-
- }
 
 
 

@@ -24,7 +24,7 @@ int OpenFileWrap(LPCSTR str, DWORD mode, HANDLE* OUT hFile);
 
 /*A wrap to the readfilefunction, gets as an input Handle of a file, it's length and the buffer as well
 if it does not manage to read it exits with the last error*/
-int ReadFileWrap(DWORD len, HANDLE file, char* my_file_buff);
+int  ReadFileWrap(DWORD len, HANDLE file, char* my_file_buff, DWORD* NumberOfBytesRead);
 
 // set EOF at the end of the input file 
 int SetEndOfFileWarp(LPCSTR output_path, uli end_pos, DWORD mode);
@@ -37,8 +37,10 @@ int SetFilePointerWrap(HANDLE input_file, uli pos, DWORD mode);
 if does not manage to write, it exits with the last error*/
 int WriteFileWrap(HANDLE hFile, LPCVOID  lpBuffer, DWORD  nNumberOfBytesToWrite);
 
+
+int ReadLine(HANDLE input_file, char ** OUT line);
 /*return the  number of line in file  and the places in the file of each  end of line */
-int read_number_of_line_and_end_of_lines(HANDLE file, PDWORD OUT num_of_lines_out,  OUT uli** p_end_of_lines);
+//int read_number_of_line_and_end_of_lines(HANDLE file, PDWORD OUT num_of_lines_out,  OUT uli** p_end_of_lines);
 
 
 
