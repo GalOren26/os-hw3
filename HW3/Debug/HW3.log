@@ -1,0 +1,19 @@
+﻿  main.c
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\ThreadFuncs.h(27,109): warning C4031: second formal parameter list longer than the first list
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\ThreadFuncs.h(27,7): error C2371: 'FormatNumberString': redefinition; different basic types
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\Functions.h(94): message : see declaration of 'FormatNumberString'
+  ThreadFuncs.c
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\ThreadFuncs.h(27,109): warning C4031: second formal parameter list longer than the first list
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\ThreadFuncs.h(27,7): error C2371: 'FormatNumberString': redefinition; different basic types
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\Functions.h(94): message : see declaration of 'FormatNumberString'
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\ThreadFuncs.c(214,4): warning C4033: 'Createmultiplethreads_test' must return a value
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\ThreadFuncs.c(221,4): warning C4033: 'Createmultiplethreads_test' must return a value
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\ThreadFuncs.c(228,4): warning C4033: 'Createmultiplethreads_test' must return a value
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\ThreadFuncs.c(234,4): warning C4033: 'Createmultiplethreads_test' must return a value
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\ThreadFuncs.c(242,4): warning C4033: 'Createmultiplethreads_test' must return a value
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\ThreadFuncs.c(306,64): error C2143: syntax error: missing ';' before '{'
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\ThreadFuncs.c(307,55): error C2065: 'number': undeclared identifier
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\ThreadFuncs.c(307,80): error C2065: 'prime_factors_by_format': undeclared identifier
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\ThreadFuncs.c(307,10): warning C4477: 'printf' : format string '%s' requires an argument of type 'char *', but variadic argument 2 has type 'int'
+C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\ThreadFuncs.c(256): fatal error C1075: '{': no matching token found
+  Generating Code...

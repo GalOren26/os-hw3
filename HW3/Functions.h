@@ -13,16 +13,19 @@ void printByFormat(int number, char* prime_factors_by_format);
 void FormatNumberString(int* prime_components, char* OUT prime_factors_by_format, int number_of_components);
 int FindPrimeComponets(int prime, int* OUT prime_components);
 
+<<<<<<< HEAD
 ///
 void CheakArgs(int argc);
+=======
+void CheakArgs(int argc,int excepted_num_of_args);
+>>>>>>> 8ce8ee54f352a474e3a71ff9ad1902df3236f732
 /*This function cheak if string is a number - used for validate the value of key in this code */
 BOOL CheakIsAnumber(char* str);
 /*input: pointer
 checks if the pointer is valid. if not it exists with the relevant error.
 */
 int valid_PTR(void*);
-// this funtion cheaks the 
-int CheckOperation(char* operation, int* modeflag);
+
 //------------------files--------------------
 
 /*the function is a wrap of the createfileA function it gets as an input the file name and the mode,
@@ -47,8 +50,6 @@ int WriteFileWrap(HANDLE hFile, LPCVOID  lpBuffer, DWORD  nNumberOfBytesToWrite)
 /*return the  number of line in file  and the places in the file of each  end of line */
 int read_number_of_line_and_end_of_lines(HANDLE file, PDWORD OUT num_of_lines_out,  OUT uli** p_end_of_lines);
 
-//return string of the path of the detantion file rathr absulote or realtive
-int find_dest_path(const char* source_path, OUT char** dest_out, int opreation);
 
 
 
@@ -80,7 +81,9 @@ int FreeHandelsArray(HANDLE* handels, int len);
 
 
 //Warp for signaleobject if not succed return correspnding error code 
-int WaitForSingleObjectWrap(HANDLE handle, uli time);
+int WaitForSingleObjectWrap(HANDLE handle, uli time_ms);
+//Warp for WaitForMultipleObjectsWra if not succed return correspnding error code 
+int WaitForMultipleObjectsWrap(uli num_of_threads, HANDLE* handle_arr, uli time_ms, BOOL bWaitAll);
 //------------------semphoros and mutex-- 
 //Warp for  CreateSemphore if not succed return correspnding error code 
 int CreateSemphoreWrap(int max_count,HANDLE * OUT semphore , int initialcount);
@@ -88,9 +91,9 @@ int CreateSemphoreWrap(int max_count,HANDLE * OUT semphore , int initialcount);
 int CreateMutexWrap(BOOL bInitialOwner, HANDLE* OUT mutex);
 //Warp for  OpenSemphore if not succed return correspnding error code 
 int OpenSemphoreWrap( HANDLE * OUT semphore, const char* name);
-int ReleaseSemphoreWrap(HANDLE* semphore, int lReleaseCount);
+int ReleaseSemphoreWrap(HANDLE semphore, int lReleaseCount);
 
-int ReleaseMutexeWrap(HANDLE* mutex);
+int ReleaseMutexeWrap(HANDLE mutex);
 
 
 
