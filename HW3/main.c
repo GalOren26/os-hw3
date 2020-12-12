@@ -20,16 +20,16 @@ int main(int argc, char* argv[])
 		printf("num of lines or num of threads is not a number  :(");
 		return NOT_A_NUMBER;
 	}
-	int num_of_lines = atoi(argv[3]);
+	unsigned int num_of_lines = atoi(argv[3]);
 	int num_of_threads = atoi(argv[4]);
-	Queue TasksPoistions;
+	Queue* TasksPoistions;
 	ret_val1= InitializeQueue(num_of_lines, &TasksPoistions);
 	ret_val1= OpenFileWrap(input_path, OPEN_EXISTING, &input_file);
 	if (ret_val1 != SUCCESS)
 	{
 		return ret_val1; 
 	}
-	fill_fifo(&TasksPoistions, input_file, num_of_lines);
+	fill_fifo(TasksPoistions, input_file, num_of_lines);
 	
 
 
