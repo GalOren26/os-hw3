@@ -251,7 +251,7 @@ DWORD WINAPI read(LPVOID lpParam)
 
 //------- prime number functions--------------
 
- void FindPrimeComponets(int prime, int* OUT prime_components)
+ int FindPrimeComponets(int prime, int* OUT prime_components)
  {
 	 //int n = 999999999;
 	 //int* arr[30] = { 0 };
@@ -271,6 +271,7 @@ DWORD WINAPI read(LPVOID lpParam)
 	 if (prime > 2) {
 		 prime_components[index] = prime;
 	 }
+	 return index;
  }
  void FormatNumberString(int* prime_components, char* OUT prime_factors_by_format, int number_of_components)
  {
