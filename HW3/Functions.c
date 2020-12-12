@@ -115,6 +115,12 @@ return SUCCESS;
 		uli expand_factor = 1;
 		uli curser_index = 0;
 		int ret_val = 0;
+		int start_pos;
+		ret_val = SetFilePointerWrap(input_file, 0, FILE_CURRENT, &start_pos);
+		if (ret_val != SUCCESS)
+		{
+			return ret_val;
+		}
 		char* line_temp = calloc(NUM_OF_BYTES_TO_READ+1, sizeof(char));
 		ret_val = CheckAlocation(line_temp);
 		if (ret_val != SUCCESS)
@@ -134,6 +140,12 @@ return SUCCESS;
 			for (; line_temp[curser_index] != 0 && line_temp[curser_index] != '\n'; curser_index++);
 			if (line_temp[curser_index] == '\n')
 			{
+				ret_val = SetFilePointerWrap(input_file, start_pos+curser_index+1, FILE_BEGIN,NULL);
+				if (ret_val != SUCCESS)
+				{
+					return ret_val;
+				}
+
 				line_temp[curser_index - 1] = '\0';
 				*line = (char*)calloc(curser_index , sizeof(char));
 				ret_val = CheckAlocation(line_temp);
@@ -455,10 +467,16 @@ put the result in dest ptr TO-do  free dest outside */
 	//
 	//	return SUCCESS;
 	//}
-	int SetFilePointerWrap(HANDLE input_file, uli pos, DWORD mode)
+	int SetFilePointerWrap(HANDLE input_file, uli DistanceToMove, DWORD FromWhereToMove, DWORD* OUT PositionAfterSet)
 	{
-		DWORD retval = SetFilePointer(input_file, pos, NULL, mode);
-
+		DWORD retval;
+		if (PositionAfterSet != NULL)
+		{
+			retval = SetFilePointer(input_file, DistanceToMove, NULL, FromWhereToMove);
+			*PositionAfterSet = retval;
+		}
+		else 
+			retval = SetFilePointer(input_file, DistanceToMove, NULL, FromWhereToMove);
 		if (retval == INVALID_SET_FILE_POINTER)
 		{
 			printf("INVALID_SET_FILE_POINTER");

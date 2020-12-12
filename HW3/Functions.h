@@ -31,7 +31,9 @@ int SetEndOfFileWarp(LPCSTR output_path, uli end_pos, DWORD mode);
 
 /*A wrap for the setfilepointer function. the function gets as an input the handle of the file,
 and it moves the file pointer by "pos" bytes acording to the mode given as an input */
-int SetFilePointerWrap(HANDLE input_file, uli pos, DWORD mode);
+// the function can return the current file poistion in out paramter PositionAfterSet .
+//if not needed PositionAfterSet set it to None 
+int SetFilePointerWrap(HANDLE input_file, uli DistanceToMove, DWORD FromWhereToMove, DWORD* OUT PositionAfterSet);
 
 /*A wrap if the writefile function, it gets as an input handle of a file,buffer, and the amount of bytes to write
 if does not manage to write, it exits with the last error*/
