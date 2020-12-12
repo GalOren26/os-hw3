@@ -14,23 +14,43 @@ Project – parllel encrypt and dycrypt  kaiser encrpytion with with syncronizatio
 int main(int argc, char* argv[])
 {
 	CheakArgs(argc,5);
-	DWORD mode = OPEN_EXISTING;
-	int ret_val1; 
-	LPCSTR input_path = argv[1];
-	int num_of_threads = 2;
-	Lock *my_lock= InitializeLock(2);
-	parssing_data** thread_params = (parssing_data**)calloc(num_of_threads, sizeof(parssing_data*));
-	thread_params[0] = (parssing_data*)calloc(num_of_threads, sizeof(parssing_data));
-	thread_params[1] = (parssing_data*)calloc(num_of_threads, sizeof(parssing_data));
-	thread_params[0]->end_pos=10;
-	thread_params[0]->start_pos = 0;
-	thread_params[0]->lock= my_lock;
-	thread_params[0]->output_path= input_path;
-	thread_params[0]->input_path= input_path;
-	thread_params[1] = thread_params[0];
-	Createmultiplethreads_test(thread_params, num_of_threads);
+	////
+	int prime = 0;
+	//we can send pointer_to prime to a function that reads the file line by line
+	//and that way to initialize prime
+	int* pointer_to_prime = &prime;
+	int* prime_components[30] = { 0 };
+	int number_of_components;
+	char* prime_factors_by_format = NULL;
+	number_of_components = FindPrimeComponets(prime, prime_components);
+	//allocate in size number_of_components*2 since we need comas to seperate between the numbers
+	prime_factors_by_format = (char*)malloc((sizeof(char)) * number_of_components * 2);
+	//this is only a temporary solution, until we decide how to handle with all the memory allocations
+	if (NULL == prime_factors_by_format) {
+		printf("memory allocation failed");
+		return -1;
+	}
+	FormatNumberString(prime_components, prime_factors_by_format, number_of_components);
+
+
+	//DWORD mode = OPEN_EXISTING;
+	//int ret_val1; 
+	//LPCSTR input_path = argv[1];
+	//int num_of_threads = 2;
+	//Lock *my_lock= InitializeLock(2);
+	//parssing_data** thread_params = (parssing_data**)calloc(num_of_threads, sizeof(parssing_data*));
+	//thread_params[0] = (parssing_data*)calloc(num_of_threads, sizeof(parssing_data));
+	//thread_params[1] = (parssing_data*)calloc(num_of_threads, sizeof(parssing_data));
+	//thread_params[0]->end_pos=10;
+	//thread_params[0]->start_pos = 0;
+	//thread_params[0]->lock= my_lock;
+	//thread_params[0]->output_path= input_path;
+	//thread_params[0]->input_path= input_path;
+	//thread_params[1] = thread_params[0];
+	//Createmultiplethreads_test(thread_params, num_of_threads);
 	
-	free(thread_params);
+	//free(thread_params);
+	///
 	/* test
 	1. multiple read 
 	2.try to write 
