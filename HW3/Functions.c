@@ -343,7 +343,6 @@
 		return SUCCESS;
 	}
 
-<<<<<<< HEAD
 	//int find_dest_path(const char* source_path,OUT char ** dest_out,int opreation  )
 	//{
 		/* find the dest path of where to save the decrypted.txt  ootput file rather source path is absulte or realative
@@ -405,8 +404,6 @@ put the result in dest ptr TO-do  free dest outside */
 	//
 	//	return SUCCESS;
 	//}
-=======
->>>>>>> 8ce8ee54f352a474e3a71ff9ad1902df3236f732
 	int SetFilePointerWrap(HANDLE input_file, uli pos, DWORD mode)
 	{
 		DWORD retval = SetFilePointer(input_file, pos, NULL, mode);

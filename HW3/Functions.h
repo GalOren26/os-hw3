@@ -7,18 +7,8 @@
 #include <Windows.h>
 
 #endif
-///our code- EX 3
 
-void printByFormat(int number, char* prime_factors_by_format);
-void FormatNumberString(int* prime_components, char* OUT prime_factors_by_format, int number_of_components);
-int FindPrimeComponets(int prime, int* OUT prime_components);
-
-<<<<<<< HEAD
-///
-void CheakArgs(int argc);
-=======
 void CheakArgs(int argc,int excepted_num_of_args);
->>>>>>> 8ce8ee54f352a474e3a71ff9ad1902df3236f732
 /*This function cheak if string is a number - used for validate the value of key in this code */
 BOOL CheakIsAnumber(char* str);
 /*input: pointer
