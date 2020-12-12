@@ -23,5 +23,11 @@ DWORD WINAPI read(LPVOID lpParam);
 	LPVOID p_thread_parameters,
 	LPDWORD p_thread_id, HANDLE* OUT thread_handle);
  int Createmultiplethreads_test(parssing_data** p_params,int num_of_threads);
- int FindPrimeComponets(int prime, int* OUT prime_components);
+ //inputs:prime - the number that we want to get it's prime factors
+//	prime_component is an int* array with size 30-
+//(max prime factor is 30  couse  num <2^30)
+ void FindPrimeComponets(int prime, int* OUT prime_components);
+ //format thr string that print the prime factors. 
  void FormatNumberString(int* prime_components, char* OUT prime_factors_by_format, int number_of_components);
+//funcionallity: this function prints the prime components by the specified format 
+ void printByFormat(int number, char* prime_factors_by_format);
