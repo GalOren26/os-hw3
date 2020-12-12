@@ -23,11 +23,7 @@
     <ClInclude Include="HardCodedData.h" />
     <ClInclude Include="Lock.h" />
     <ClInclude Include="queue.h" />
-<<<<<<< HEAD
-    <ClInclude Include="ThrredFuncs.h" />
-=======
     <ClInclude Include="ThreadFuncs.h" />
->>>>>>> 8ce8ee54f352a474e3a71ff9ad1902df3236f732
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Functions.c" />
@@ -35,11 +31,7 @@
     <ClCompile Include="main.c" />
     <ClCompile Include="more_functions.c" />
     <ClCompile Include="queue.c" />
-<<<<<<< HEAD
-    <ClCompile Include="ThrredFuncs.c" />
-=======
     <ClCompile Include="ThreadFuncs.c" />
->>>>>>> 8ce8ee54f352a474e3a71ff9ad1902df3236f732
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
