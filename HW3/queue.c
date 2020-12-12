@@ -32,7 +32,7 @@
 
 // Queue is full when size becomes 
 // equal to the capacity 
-int isFull(struct Queue* queue)
+int isFull( Queue* queue)
 {
     return (queue->size == queue->capacity);
 }
