@@ -1,11 +1,33 @@
 #include "Functions.h"
-#include "ThrredFuncs.h"
+#include "ThreadFuncs.h"
 
 #include <assert.h>
 #include < stdlib.h >
-
-//****************encryption decryption  methods**************
-
+DWORD WINAPI read(LPVOID lpParam)
+{
+	int ret_val1 = 0;
+	parssing_data* params;
+	HANDLE InputHandle;
+	params = (parssing_data*)lpParam;
+	HANDLE input_file;
+	printf("Hello from thread num %d, I am reader \n", GetCurrentThreadId());
+	if (params->lock->readers == 1)
+	{
+		release_read(params->lock);
+		if (params->lock->readers == 0)
+			lock_write(params->lock);
+	}
+	read_lock(params->lock);
+	ret_val1=OpenFileWrap(params->input_path, OPEN_EXISTING, &input_file);
+	if (ret_val1 != SUCCESS)
+	{
+		return ret_val1;
+	}
+	char my_file_buff[100] = { 0 }; 
+	ReadFileWrap(params->end_pos, input_file, my_file_buff);
+	printf("%s\n\n", my_file_buff);
+	return SUCCESS;
+}
 
 //DWORD WINAPI DecThread(LPVOID lpParam)
 //{
@@ -17,7 +39,7 @@
 //	params = (parssing_data*)lpParam;
 //	printf("Hello from thread num %d, I am blocked ,waiting for realese \n", GetCurrentThreadId());
 //	//OpenSemphoreWrap(&main_wait, p_main_wait_name);
-//	//OpenSemphoreWrap(&thread_wait, p_thread_wait_name);
+//	//OpenSemphoreWrap(&thread_wait, p_thread_wait_name);\
 //	//if (ret_val1 != SUCCESS || ret_val2 != SUCCESS)
 //	//	return PROBLEM_OPEN_SEMPHORE;
 //	wait_code = ReleaseSemaphore(params->main_sem,1, NULL);
@@ -147,7 +169,8 @@
 //free1:
 //	return ret_val;
 //}
-static int CreateThreadSimple(LPTHREAD_START_ROUTINE p_start_routine,
+
+ int CreateThreadSimple(LPTHREAD_START_ROUTINE p_start_routine,
 		LPVOID p_thread_parameters,
 		LPDWORD p_thread_id, HANDLE* OUT thread_handle)
 	{
@@ -181,3 +204,86 @@ static int CreateThreadSimple(LPTHREAD_START_ROUTINE p_start_routine,
 		return SUCCESS;
 	}
 
+ int Createmultiplethreads_test( parssing_data** p_params,int num_of_threads)
+ {
+	 HANDLE* p_thread_handles = (HANDLE*)calloc(num_of_threads, sizeof(HANDLE)); // each cell in the array, contains params for thread
+	 int ret_val1 = CheckAlocation(p_thread_handles);
+	 if (ret_val1 != SUCCESS)
+	 {
+		 printf("error");
+		 return;
+	 }
+	 DWORD* p_thread_ids = (DWORD*)calloc(num_of_threads, sizeof(DWORD)); // each cell in the array, contains params for thread
+	 CheckAlocation(p_thread_ids);
+	 if (ret_val1 != SUCCESS)
+	 {
+		 printf("error");
+		 return;
+	 }
+
+	 ret_val1 = CreateThreadSimple(read, (LPVOID)p_params[0], &p_thread_ids[0], &p_thread_handles[0]);
+	 if (ret_val1 != SUCCESS)
+	 {
+		 printf("error");
+		 return;
+	 }
+	 ret_val1 = CreateThreadSimple(read, (LPVOID)p_params[1], &p_thread_ids[1], &p_thread_handles[1]);
+	 if (ret_val1 != SUCCESS)
+	 {
+		 printf("error");
+		 return;
+	 }
+
+
+	 ret_val1= WaitForMultipleObjectsWrap(num_of_threads, p_thread_handles, TIMEOUT_IN_MILLISECONDS, TRUE);
+	 if (ret_val1 != SUCCESS)
+	 {
+		 printf("error");
+		 return;
+	 }
+
+ }
+
+
+
+
+
+
+//------- prime number functions--------------
+
+ void FindPrimeComponets(int prime, int* OUT prime_components)
+ {
+	 //int n = 999999999;
+	 //int* arr[30] = { 0 };
+	 int index = 0;
+	 while (prime % 2 == 0) {
+		 prime_components[index] = 2;
+		 index += 1;
+		 prime = prime / 2;
+	 }
+	 for (int i = 3; i * i <= prime; i += 2) {
+		 while (prime % i == 0) {
+			 prime_components[index] = i;
+			 index += 1;
+			 prime = prime / i;
+		 }
+	 }
+	 if (prime > 2) {
+		 prime_components[index] = prime;
+	 }
+ }
+ void FormatNumberString(int* prime_components, char* OUT prime_factors_by_format, int number_of_components)
+ {
+	 int i = 0;
+	 for (int i = 0; i < number_of_components - 1; i++) {
+		 prime_factors_by_format[i] = prime_components[i] + '0';
+		 prime_factors_by_format[i + 1] = ',';
+		 i++;
+	 }
+	 prime_factors_by_format[i] = prime_components[i] + '0';
+	 prime_factors_by_format[i + 1] = '\0';
+ }
+
+ void printByFormat(int number, char* prime_factors_by_format) {
+	 printf("The prime factors of %d are: %s\r\n", number, prime_factors_by_format);
+ }

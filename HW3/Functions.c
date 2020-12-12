@@ -6,14 +6,14 @@
 
 // ******** valiation of data and parms ************ 
 
-	void CheakArgs(int argc)
+	void CheakArgs(int argc,int excpted_num_of_args)
 {
-	if (argc < 5)
+	if (argc < excpted_num_of_args)
 	{
 		printf("ERROR: Not enough input arguments");
 		exit(ERR_CODE_NOT_ENOUGH_ARGUMENTS);
 	}
-	if (argc > 5)
+	if (argc > excpted_num_of_args)
 	{
 		printf("ERROR: Too many input arguments");
 		exit(ERR_CODE_TOO_MANY_ARGUMENTS);
@@ -48,12 +48,24 @@
 		return SUCCESS;
 	}
 
-	int WaitForSingleObjectWrap(HANDLE handle, uli time)
+	int WaitForSingleObjectWrap(HANDLE handle, uli time_ms)
 	{
-		int wait_code = WaitForSingleObject(handle, time);
+		int wait_code = WaitForSingleObject(handle, time_ms);
 		if (wait_code != WAIT_OBJECT_0)
 		{
 			printf("problem with WaitForSingleObject ,error code is %d \n\n", GetLastError());
+			return TIME_OUT_THREAD;
+		}
+		return SUCCESS;
+	}
+
+	int WaitForMultipleObjectsWrap(uli num_of_threads, HANDLE* handle_arr, uli time_ms, BOOL bWaitAll)
+	{
+
+		int wait_code = WaitForMultipleObjects(num_of_threads, handle_arr, TRUE, INFINITE);
+		if (WAIT_OBJECT_0 != wait_code)
+		{
+			printf("problem with WaitForMultipleObject ,error code is %d \n\n", GetLastError());
 			return TIME_OUT_THREAD;
 		}
 		return SUCCESS;
@@ -217,8 +229,8 @@
 
 		if (*semphore == NULL)
 		{
-			printf("problem with create semphore %d", GetLastError());
-			return PROBLEM_CRATE_SEMPHORE;
+			printf("problem with create semphore,error code %d", GetLastError());
+			return PROBLEM_CREATE_SEMPHORE;
 		}
 		return SUCCESS;
 	}
@@ -233,8 +245,8 @@
 
 		if (*mutex == NULL)
 		{
-			printf("problem with create mutex %d", GetLastError());
-			return PROBLEM_CRATE_SEMPHORE;
+			printf("problem with create mutex,error code %d", GetLastError());
+			return PROBLEM_CREATE_MUTEX;
 		}
 		return SUCCESS;
 	}
@@ -248,29 +260,29 @@
 
 		if (*semphore == NULL)
 		{
-			printf("problem with OPEN semphore %d", GetLastError());
-			return PROBLEM_CRATE_SEMPHORE;
+			printf("problem with OPEN semphore,error code %d", GetLastError());
+			return PROBLEM_OPEN_SEMPHORE;
 		}
 		return SUCCESS;
 	}
 
-	int ReleaseSemphoreWrap(HANDLE* semphore, int lReleaseCount)
+	int ReleaseSemphoreWrap(HANDLE semphore, int lReleaseCount)
 	{
-		int wait_code = ReleaseSemaphore(*semphore, lReleaseCount, NULL);
+		int wait_code = ReleaseSemaphore(semphore, lReleaseCount, NULL);
 		if (wait_code == NULL)
 		{
-			printf("problem with realease semphore %d", GetLastError());
-			return PROBLEM_CRATE_SEMPHORE;
+			printf("problem with realease semphore ,error code%d", GetLastError());
+			return ERROR_RELEASE_SEMPHORE;
 		}
 		return SUCCESS;
 	}
 
-	int ReleaseMutexeWrap(HANDLE* mutex)
+	int ReleaseMutexeWrap(HANDLE mutex)
 	{
-		int wait_code = ReleaseMutex(*mutex);
+		int wait_code = ReleaseMutex(mutex);
 		if (wait_code == NULL)
 		{
-			printf("problem with realease Mutex %d", GetLastError());
+			printf("problem with realease Mutex,error code  %d", GetLastError());
 			return ERROR_RELEASE_MUTEX;
 		}
 		return SUCCESS;
@@ -347,67 +359,6 @@
 		return SUCCESS;
 	}
 
-	int find_dest_path(const char* source_path,OUT char ** dest_out,int opreation  )
-	{
-		/* find the dest path of where to save the decrypted.txt  ootput file rather source path is absulte or realative
-put the result in dest ptr TO-do  free dest outside */
-		char* dest;
-		int ret_val = 0;
-		ret_val = 0;
-		char* p_abs_path = strrchr(source_path, '\\');
-		char* p_explicit_file;
-		if (opreation == ENCRYPT)
-		{
-			p_explicit_file = "encrypted.txt";
-		}
-		else
-		{
-			p_explicit_file = "decrypted.txt";
-		}
-		size_t explicit_file_len = strlen(p_explicit_file);
-		size_t abs_path_len = p_abs_path == NULL ? 0 : p_abs_path - source_path;
-		dest = calloc( explicit_file_len + abs_path_len + ADDITION_LEN_TO_PATH, sizeof(char));
-		ret_val=CheckAlocation((void*)dest);
-		if (ret_val != SUCCESS)
-			return ret_val;
-		if (p_abs_path)
-		{
-			memcpy(dest, source_path, abs_path_len);
-			dest[abs_path_len] = '\\';
-		}
-		strcat_s(dest, explicit_file_len + abs_path_len + ADDITION_LEN_TO_PATH, p_explicit_file);
-		*dest_out = dest;
-		return SUCCESS;
-	}
-
-	int CheckOperation(char* operation,int* modeflag)
-	{	char enc[3] = "-e";
-		char dec[3] = "-d";
-		int ret_val = 0;
-		ret_val = valid_PTR(operation);
-		if (ret_val != SUCCESS)
-		{
-			return ret_val;
-		}
-		if (strchr(operation, 'e') != NULL && strchr(operation, 'd') != NULL)
-		{
-			printf("INVALID_NUMBER_OF_PARAMS");
-			return INVALID_NUMBER_OF_PARAMS;
-		}
-		if (strcmp(operation, enc) == 0)
-		{
-			*modeflag = ENCRYPT;
-
-		}
-		else if (strcmp(operation, dec) == 0)
-		{
-			*modeflag = DECRYPT;
-		}
-		else
-			return NOT_VALID_OPREATION;
-
-		return SUCCESS;
-	}
 	int SetFilePointerWrap(HANDLE input_file, uli pos, DWORD mode)
 	{
 		DWORD retval = SetFilePointer(input_file, pos, NULL, mode);

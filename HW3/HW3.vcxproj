@@ -22,13 +22,16 @@
     <ClInclude Include="Functions.h" />
     <ClInclude Include="HardCodedData.h" />
     <ClInclude Include="Lock.h" />
-    <ClInclude Include="ThrredFuncs.h" />
+    <ClInclude Include="queue.h" />
+    <ClInclude Include="ThreadFuncs.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Functions.c" />
     <ClCompile Include="Lock.c" />
     <ClCompile Include="main.c" />
-    <ClCompile Include="ThrredFuncs.c" />
+    <ClCompile Include="more_functions.c" />
+    <ClCompile Include="queue.c" />
+    <ClCompile Include="ThreadFuncs.c" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

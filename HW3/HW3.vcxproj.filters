@@ -24,7 +24,10 @@
     <ClInclude Include="Lock.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ThrredFuncs.h">
+    <ClInclude Include="queue.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ThreadFuncs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -32,13 +35,19 @@
     <ClCompile Include="main.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ThrredFuncs.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Functions.c">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Lock.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="more_functions.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="queue.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ThreadFuncs.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

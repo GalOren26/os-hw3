@@ -1,24 +1,17 @@
-#include <windows.h>
-#include <limits.h> 
-#include <stdio.h> 
-#include <stdlib.h>
 #include "queue.h"
-/// "destroy queue" was not implemented yet
-struct Queue {
-    int front, rear, size;
-    unsigned int capacity;
-    int* array;
-};
+
+
 
 // function to create a queue of a given capacity(number of lines in the file)
 // It initializes size of queue as 0 
-struct Queue* createQueue(unsigned int capacity)
+struct Queue* InitializeQueue(unsigned int capacity)
 {
     struct Queue* queue = (struct Queue*)malloc(
         sizeof(struct Queue));
-    if (NULL == queue) {
+    if (NULL == queue)
+    {
         printf("memory allocation failed");
-        return -1;
+        return MEMORY_ALLOCATION_FAILURE;
     }
     queue->capacity = capacity;
     queue->front = queue->size = 0;
@@ -29,8 +22,11 @@ struct Queue* createQueue(unsigned int capacity)
         queue->capacity * sizeof(int));
     if (NULL == queue->array) {
         printf("memory allocation failed");
-        return -1;
+        return MEMORY_ALLOCATION_FAILURE;
     }
+    int ErrorValue = CreateMutexWrap(FALSE, queue->mutex_fifo);
+    if (ErrorValue != SUCCESS)
+        return ErrorValue;
     return queue;
 }
 
@@ -48,15 +44,22 @@ int isEmpty(struct Queue* queue)
 }
 // Function to add an item to the queue. 
 // It changes rear and size 
-void enqueue(struct Queue* queue, int item)
+void push(struct Queue* queue, int item)
 {
     if (isFull(queue))
         return;
+    int ErrorValue = WaitForSingleObjectWrap(queue, TIMEOUT_IN_MILLISECONDS);
+    if (ErrorValue != SUCCESS)
+        return ErrorValue;
     queue->rear = (queue->rear + 1)
         % queue->capacity;
     queue->array[queue->rear] = item;
     queue->size = queue->size + 1;
     printf("%d enqueued to queue\n", item);
+    ErrorValue = ReleaseMutexeWrap(queue, TIMEOUT_IN_MILLISECONDS);
+    if (ErrorValue != SUCCESS)
+        return ErrorValue;
+                                                                                                                               
 }
 // Function to remove an item from queue.
 // It changes front and size 
@@ -64,15 +67,21 @@ int pop(struct Queue* queue)
 {
     if (isEmpty(queue))
         return INT_MIN;
+    int ErrorValue = WaitForSingleObjectWrap(queue, TIMEOUT_IN_MILLISECONDS);
+    if (ErrorValue != SUCCESS)
+        return ErrorValue;
     int item = queue->array[queue->front];
     queue->front = (queue->front + 1)
         % queue->capacity;
     queue->size = queue->size - 1;
+    ErrorValue = ReleaseMutexeWrap(queue, TIMEOUT_IN_MILLISECONDS);
+    if (ErrorValue != SUCCESS)
+        return ErrorValue;
     return item;
 }
 
 // Function to get front of queue 
-int front(struct Queue* queue)
+int Top(struct Queue* queue)
 {
     if (isEmpty(queue))
         return INT_MIN;
