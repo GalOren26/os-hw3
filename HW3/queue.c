@@ -94,19 +94,16 @@ int fill_fifo(Queue* queue, HANDLE input_file, int num_of_lines)
     {
         int ret_val = 0; 
         char* line = NULL;
-        int* num = 0; 
         ret_val = ReadLine(input_file, &line);
         if (ret_val != SUCCESS)
             return ret_val; 
-
-       /* int ret_val = ConvertStr2num(&num);*/
-   /*     if (ret_val != SUCCESS)
-        {
-            free(line);
+        ret_val = CheakIsAnumber(line);
+        if (ret_val != SUCCESS)
             return ret_val;
-        //}*/
-        //free(line);
-        //push(queue, *num);
+        uli num = atoi(line);
+        printf("%s", line);
+        free(line);
+        push(queue, num);
     }
     return SUCCESS;
 }

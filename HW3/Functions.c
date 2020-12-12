@@ -105,7 +105,7 @@ return SUCCESS;
 				return FALSE;
 			}
 		}
-		return TRUE;
+		return SUCCESS;
 	}
 	//****************File methods**************
 
@@ -135,14 +135,13 @@ return SUCCESS;
 			if (line_temp[curser_index] == '\n')
 			{
 				line_temp[curser_index - 1] = '\0';
-				*line = (char*)calloc(curser_index - 1, sizeof(char));
+				*line = (char*)calloc(curser_index , sizeof(char));
 				ret_val = CheckAlocation(line_temp);
 				if (ret_val != SUCCESS)
 				{
 					return ret_val;
 				}
 				memcpy(*line, line_temp, curser_index);
-				printf("%s", *line);
 				free(line_temp);
 				return SUCCESS;
 			}
