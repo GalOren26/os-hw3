@@ -7,8 +7,13 @@
 #include <Windows.h>
 
 #endif
+///our code- EX 3
 
+void printByFormat(int number, char* prime_factors_by_format);
+void FormatNumberString(int* prime_components, char* OUT prime_factors_by_format, int number_of_components);
+int FindPrimeComponets(int prime, int* OUT prime_components);
 
+///
 void CheakArgs(int argc);
 /*This function cheak if string is a number - used for validate the value of key in this code */
 BOOL CheakIsAnumber(char* str);
@@ -88,11 +93,8 @@ int ReleaseSemphoreWrap(HANDLE* semphore, int lReleaseCount);
 int ReleaseMutexeWrap(HANDLE* mutex);
 
 
-//------ prime number functions 
 
-int FindPrimeComponets(int prime , int* OUT prime_components);
-int sort(int* prime_components);
-int FormatNumberString(int* prime_components, char* OUT str);
+
 
 
 

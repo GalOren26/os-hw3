@@ -23,7 +23,7 @@ struct Queue* createQueue(unsigned int capacity)
     queue->capacity = capacity;
     queue->front = queue->size = 0;
 
-    // This is important, for the enqueue 
+    // This procedure is important, for the enqueue 
     queue->rear = capacity - 1;
     queue->array = (int*)malloc(
         queue->capacity * sizeof(int));

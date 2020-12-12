@@ -275,23 +275,7 @@
 		}
 		return SUCCESS;
 	}
-
-
-	int FindPrimeComponets(int prime , int* OUT prime_components)
-	{
-		return 0;
-	}
-
-	int sort(int* prime_components)
-	{
-		return 0;
-	}
-
-	int FormatNumberString(int* prime_components, char* OUT str)
-	{
-		return 0;
-	}
-
+	
 	int  ReadFileWrap(DWORD len, HANDLE file,char* my_file_buff )
 	{
 		//WRAP TO ReadFile 
@@ -347,67 +331,67 @@
 		return SUCCESS;
 	}
 
-	int find_dest_path(const char* source_path,OUT char ** dest_out,int opreation  )
-	{
+	//int find_dest_path(const char* source_path,OUT char ** dest_out,int opreation  )
+	//{
 		/* find the dest path of where to save the decrypted.txt  ootput file rather source path is absulte or realative
 put the result in dest ptr TO-do  free dest outside */
-		char* dest;
-		int ret_val = 0;
-		ret_val = 0;
-		char* p_abs_path = strrchr(source_path, '\\');
-		char* p_explicit_file;
-		if (opreation == ENCRYPT)
-		{
-			p_explicit_file = "encrypted.txt";
-		}
-		else
-		{
-			p_explicit_file = "decrypted.txt";
-		}
-		size_t explicit_file_len = strlen(p_explicit_file);
-		size_t abs_path_len = p_abs_path == NULL ? 0 : p_abs_path - source_path;
-		dest = calloc( explicit_file_len + abs_path_len + ADDITION_LEN_TO_PATH, sizeof(char));
-		ret_val=CheckAlocation((void*)dest);
-		if (ret_val != SUCCESS)
-			return ret_val;
-		if (p_abs_path)
-		{
-			memcpy(dest, source_path, abs_path_len);
-			dest[abs_path_len] = '\\';
-		}
-		strcat_s(dest, explicit_file_len + abs_path_len + ADDITION_LEN_TO_PATH, p_explicit_file);
-		*dest_out = dest;
-		return SUCCESS;
-	}
+		//char* dest;
+		//int ret_val = 0;
+		//ret_val = 0;
+		//char* p_abs_path = strrchr(source_path, '\\');
+		//char* p_explicit_file;
+		//if (opreation == ENCRYPT)
+		//{
+		//	p_explicit_file = "encrypted.txt";
+		//}
+		//else
+		//{
+		//	p_explicit_file = "decrypted.txt";
+		//}
+		//size_t explicit_file_len = strlen(p_explicit_file);
+		//size_t abs_path_len = p_abs_path == NULL ? 0 : p_abs_path - source_path;
+		//dest = calloc( explicit_file_len + abs_path_len + ADDITION_LEN_TO_PATH, sizeof(char));
+		//ret_val=CheckAlocation((void*)dest);
+		//if (ret_val != SUCCESS)
+		//	return ret_val;
+		//if (p_abs_path)
+		//{
+		//	memcpy(dest, source_path, abs_path_len);
+		//	dest[abs_path_len] = '\\';
+		//}
+		//strcat_s(dest, explicit_file_len + abs_path_len + ADDITION_LEN_TO_PATH, p_explicit_file);
+		//*dest_out = dest;
+		//return SUCCESS;
+	//}
 
-	int CheckOperation(char* operation,int* modeflag)
-	{	char enc[3] = "-e";
-		char dec[3] = "-d";
-		int ret_val = 0;
-		ret_val = valid_PTR(operation);
-		if (ret_val != SUCCESS)
-		{
-			return ret_val;
-		}
-		if (strchr(operation, 'e') != NULL && strchr(operation, 'd') != NULL)
-		{
-			printf("INVALID_NUMBER_OF_PARAMS");
-			return INVALID_NUMBER_OF_PARAMS;
-		}
-		if (strcmp(operation, enc) == 0)
-		{
-			*modeflag = ENCRYPT;
-
-		}
-		else if (strcmp(operation, dec) == 0)
-		{
-			*modeflag = DECRYPT;
-		}
-		else
-			return NOT_VALID_OPREATION;
-
-		return SUCCESS;
-	}
+	//int CheckOperation(char* operation,int* modeflag)
+	//{	char enc[3] = "-e";
+	//	char dec[3] = "-d";
+	//	int ret_val = 0;
+	//	ret_val = valid_PTR(operation);
+	//	if (ret_val != SUCCESS)
+	//	{
+	//		return ret_val;
+	//	}
+	//	if (strchr(operation, 'e') != NULL && strchr(operation, 'd') != NULL)
+	//	{
+	//		printf("INVALID_NUMBER_OF_PARAMS");
+	//		return INVALID_NUMBER_OF_PARAMS;
+	//	}
+	//	if (strcmp(operation, enc) == 0)
+	//	{
+	//		*modeflag = ENCRYPT;
+	//
+	//	}
+	//	else if (strcmp(operation, dec) == 0)
+	//	{
+	//		*modeflag = DECRYPT;
+	//	}
+	//	else
+	//		return NOT_VALID_OPREATION;
+	//
+	//	return SUCCESS;
+	//}
 	int SetFilePointerWrap(HANDLE input_file, uli pos, DWORD mode)
 	{
 		DWORD retval = SetFilePointer(input_file, pos, NULL, mode);

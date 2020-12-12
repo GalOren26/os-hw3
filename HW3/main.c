@@ -13,8 +13,27 @@ Project – parllel encrypt and dycrypt  kaiser encrpytion with with syncronizatio
 */
 int main(int argc, char* argv[])
 {
-
+	//our code -EX 3
+	//We need to open for read and write, and get the number from the file.
 	CheakArgs(argc);
+	int prime = 0;
+	//we can send pointer_to prime to a function that reads the file line by line
+	//and that way to initialize prime
+	int* pointer_to_prime = &prime;
+	int* prime_components[30] = { 0 };
+	int number_of_components;
+	char* prime_factors_by_format = NULL;
+	number_of_components = FindPrimeComponets(prime, prime_components);
+	//allocate in size number_of_components*2 since we need comas to seperate between the numbers
+	prime_factors_by_format = (char*)malloc((sizeof(char)) * number_of_components * 2);
+	//this is only a tempruary solution, untill we decide how to handle with all the memory allocations
+	if (NULL == prime_factors_by_format) {
+		printf("memory allocation failed");
+		return -1;
+	}
+	FormatNumberString(prime_components, prime_factors_by_format, number_of_components);
+
+	//
 	HANDLE main_wait;
 	 char* dest_path = 0;
 	HANDLE thread_wait;
