@@ -36,30 +36,23 @@ int main(int argc, char* argv[])
 		return ret_val1;
 	parssing_data params = { TasksPoistions ,argv[2],num_of_threads ,lock };
 	ret_val1=Createmultiplethreads(&params, num_of_threads);
-
-
-	//if (ret_val1 == FALSE || ret_val2 == FALSE)
-	//{
-	//	printf("num of lines or num of threads is not a number  :(");
-	//	return NOT_A_NUMBER;
-	//}
-
-	//int prime = 0;
-	////we can send pointer_to prime to a function that reads the file line by line
-	////and that way to initialize prime
+	int prime = 0;
+	//we can send pointer_to prime to a function that reads the file line by line
+	//and that way to initialize prime
 	//int* pointer_to_prime = &prime;
 	//int* prime_components[30] = { 0 };
 	//int number_of_components;
 	//char* prime_factors_by_format = NULL;
 	//number_of_components = FindPrimeComponets(prime, prime_components);
-	////allocate in size number_of_components*2 since we need comas to seperate between the numbers
+	//allocate in size number_of_components*2 since we need comas to seperate between the numbers
 	//prime_factors_by_format = (char*)malloc((sizeof(char)) * number_of_components * 2);
-	////this is only a temporary solution, until we decide how to handle with all the memory allocations
+	//this is only a temporary solution, until we decide how to handle with all the memory allocations
 	//if (NULL == prime_factors_by_format) {
 	//	printf("memory allocation failed");
 	//	return -1;
 	//}
 	//FormatNumberString(prime_components, prime_factors_by_format, number_of_components);
+
 }
 
 

@@ -12,7 +12,7 @@ typedef struct
 	LPCSTR input_path;
 	uli number_of_lines;
 	Lock* lock;
-}parssing_data;
+} parssing_data;
 
 
 

@@ -1,3 +1,85 @@
-﻿  ThrredFuncs.c
-C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\ThrredFuncs.c(11,9): warning C4101: 'input_file': unreferenced local variable
-  HW3.vcxproj -> C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\x64\Debug\HW3.exe
+﻿  Functions.c
+  Lock.c
+  main.c
+C:\Users\user\Desktop\matam\EX3\TASK3\HW3\main.c(46,67): warning C4047: 'function': 'int *' differs in levels of indirection from 'int *[30]'
+C:\Users\user\Desktop\matam\EX3\TASK3\HW3\main.c(46,67): warning C4024: 'FindPrimeComponets': different types for formal and actual parameter 2
+C:\Users\user\Desktop\matam\EX3\TASK3\HW3\main.c(54,37): warning C4047: 'function': 'int *' differs in levels of indirection from 'int *[30]'
+C:\Users\user\Desktop\matam\EX3\TASK3\HW3\main.c(54,37): warning C4024: 'FormatNumberString': different types for formal and actual parameter 1
+  queue.c
+  ThreadFuncs.c
+C:\Users\user\Desktop\matam\EX3\TASK3\HW3\ThreadFuncs.c(22,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\user\Desktop\matam\EX3\TASK3\HW3\ThreadFuncs.c(23,37): warning C4047: '=': 'uli *' differs in levels of indirection from 'int'
+C:\Users\user\Desktop\matam\EX3\TASK3\HW3\ThreadFuncs.c(25,37): error C2198: 'OpenFileWrap': too few arguments for call
+C:\Users\user\Desktop\matam\EX3\TASK3\HW3\ThreadFuncs.c(94,1): error C2143: syntax error: missing ';' before '{'
+C:\Users\user\Desktop\matam\EX3\TASK3\HW3\ThreadFuncs.c(97,29): error C2065: 'p_params': undeclared identifier
+C:\Users\user\Desktop\matam\EX3\TASK3\HW3\ThreadFuncs.c(97,31): error C2223: left of '->number_of_lines' must point to struct/union
+C:\Users\user\Desktop\matam\EX3\TASK3\HW3\ThreadFuncs.c(98,61): error C2065: 'num_of_threads': undeclared identifier
+C:\Users\user\Desktop\matam\EX3\TASK3\HW3\ThreadFuncs.c(104,55): error C2065: 'num_of_threads': undeclared identifier
+C:\Users\user\Desktop\matam\EX3\TASK3\HW3\ThreadFuncs.c(110,72): error C2065: 'num_of_threads': undeclared identifier
+C:\Users\user\Desktop\matam\EX3\TASK3\HW3\ThreadFuncs.c(116,66): error C2065: 'num_of_threads': undeclared identifier
+C:\Users\user\Desktop\matam\EX3\TASK3\HW3\ThreadFuncs.c(117,55): error C2065: 'num_of_threads': undeclared identifier
+C:\Users\user\Desktop\matam\EX3\TASK3\HW3\ThreadFuncs.c(119,36): error C2065: 'num_of_threads': undeclared identifier
+C:\Users\user\Desktop\matam\EX3\TASK3\HW3\ThreadFuncs.c(127,36): error C2065: 'p_params': undeclared identifier
+C:\Users\user\Desktop\matam\EX3\TASK3\HW3\ThreadFuncs.c(127,38): error C2223: left of '->fifo' must point to struct/union
+C:\Users\user\Desktop\matam\EX3\TASK3\HW3\ThreadFuncs.c(128,42): error C2065: 'p_params': undeclared identifier
+C:\Users\user\Desktop\matam\EX3\TASK3\HW3\ThreadFuncs.c(128,44): error C2223: left of '->input_path' must point to struct/union
+C:\Users\user\Desktop\matam\EX3\TASK3\HW3\ThreadFuncs.c(129,35): error C2065: 'p_params': undeclared identifier
+C:\Users\user\Desktop\matam\EX3\TASK3\HW3\ThreadFuncs.c(129,37): error C2223: left of '->lock' must point to struct/union
+C:\Users\user\Desktop\matam\EX3\TASK3\HW3\ThreadFuncs.c(136,53): error C2065: 'num_of_threads': undeclared identifier
+C:\Users\user\Desktop\matam\EX3\TASK3\HW3\ThreadFuncs.c(139,51): error C2065: 'num_of_threads': undeclared identifier
+C:\Users\user\Desktop\matam\EX3\TASK3\HW3\ThreadFuncs.c(141,41): error C2065: 'num_of_threads': undeclared identifier
+C:\Users\user\Desktop\matam\EX3\TASK3\HW3\ThreadFuncs.c(152,2): error C2143: syntax error: missing ';' before '{'
+C:\Users\user\Desktop\matam\EX3\TASK3\HW3\ThreadFuncs.c(154,30): error C2065: 'p_start_routine': undeclared identifier
+C:\Users\user\Desktop\matam\EX3\TASK3\HW3\ThreadFuncs.c(154,30): warning C4047: '==': 'void *' differs in levels of indirection from 'int'
+C:\Users\user\Desktop\matam\EX3\TASK3\HW3\ThreadFuncs.c(161,26): error C2065: 'p_thread_id': undeclared identifier
+C:\Users\user\Desktop\matam\EX3\TASK3\HW3\ThreadFuncs.c(161,26): warning C4047: '==': 'void *' differs in levels of indirection from 'int'
+C:\Users\user\Desktop\matam\EX3\TASK3\HW3\ThreadFuncs.c(168,18): error C2065: 'thread_handle': undeclared identifier
+C:\Users\user\Desktop\matam\EX3\TASK3\HW3\ThreadFuncs.c(168,3): error C2100: illegal indirection
+C:\Users\user\Desktop\matam\EX3\TASK3\HW3\ThreadFuncs.c(171,19): error C2065: 'p_start_routine': undeclared identifier
+C:\Users\user\Desktop\matam\EX3\TASK3\HW3\ThreadFuncs.c(171,19): warning C4047: 'function': 'LPTHREAD_START_ROUTINE' differs in levels of indirection from 'int'
+C:\Users\user\Desktop\matam\EX3\TASK3\HW3\ThreadFuncs.c(171,19): warning C4024: 'CreateThread': different types for formal and actual parameter 3
+C:\Users\user\Desktop\matam\EX3\TASK3\HW3\ThreadFuncs.c(172,23): error C2065: 'p_thread_parameters': undeclared identifier
+C:\Users\user\Desktop\matam\EX3\TASK3\HW3\ThreadFuncs.c(172,23): warning C4022: 'CreateThread': pointer mismatch for actual parameter 4
+C:\Users\user\Desktop\matam\EX3\TASK3\HW3\ThreadFuncs.c(174,15): error C2065: 'p_thread_id': undeclared identifier
+C:\Users\user\Desktop\matam\EX3\TASK3\HW3\ThreadFuncs.c(174,15): warning C4047: 'function': 'LPDWORD' differs in levels of indirection from 'int'
+C:\Users\user\Desktop\matam\EX3\TASK3\HW3\ThreadFuncs.c(174,15): warning C4024: 'CreateThread': different types for formal and actual parameter 6
+C:\Users\user\Desktop\matam\EX3\TASK3\HW3\ThreadFuncs.c(174,16): warning C4047: '=': 'int' differs in levels of indirection from 'HANDLE'
+C:\Users\user\Desktop\matam\EX3\TASK3\HW3\ThreadFuncs.c(175,21): error C2065: 'thread_handle': undeclared identifier
+C:\Users\user\Desktop\matam\EX3\TASK3\HW3\ThreadFuncs.c(175,28): warning C4047: '==': 'int' differs in levels of indirection from 'void *'
+C:\Users\user\Desktop\matam\EX3\TASK3\HW3\ThreadFuncs.c(186,2): error C2143: syntax error: missing ';' before '{'
+C:\Users\user\Desktop\matam\EX3\TASK3\HW3\ThreadFuncs.c(190,16): error C2065: 'prime': undeclared identifier
+C:\Users\user\Desktop\matam\EX3\TASK3\HW3\ThreadFuncs.c(191,20): error C2065: 'prime_components': undeclared identifier
+C:\Users\user\Desktop\matam\EX3\TASK3\HW3\ThreadFuncs.c(191,26): error C2109: subscript requires array or pointer type
+C:\Users\user\Desktop\matam\EX3\TASK3\HW3\ThreadFuncs.c(193,10): error C2065: 'prime': undeclared identifier
+C:\Users\user\Desktop\matam\EX3\TASK3\HW3\ThreadFuncs.c(193,18): error C2065: 'prime': undeclared identifier
+C:\Users\user\Desktop\matam\EX3\TASK3\HW3\ThreadFuncs.c(195,33): error C2065: 'prime': undeclared identifier
+C:\Users\user\Desktop\matam\EX3\TASK3\HW3\ThreadFuncs.c(196,17): error C2065: 'prime': undeclared identifier
+C:\Users\user\Desktop\matam\EX3\TASK3\HW3\ThreadFuncs.c(197,21): error C2065: 'prime_components': undeclared identifier
+C:\Users\user\Desktop\matam\EX3\TASK3\HW3\ThreadFuncs.c(197,27): error C2109: subscript requires array or pointer type
+C:\Users\user\Desktop\matam\EX3\TASK3\HW3\ThreadFuncs.c(199,11): error C2065: 'prime': undeclared identifier
+C:\Users\user\Desktop\matam\EX3\TASK3\HW3\ThreadFuncs.c(199,19): error C2065: 'prime': undeclared identifier
+C:\Users\user\Desktop\matam\EX3\TASK3\HW3\ThreadFuncs.c(202,13): error C2065: 'prime': undeclared identifier
+C:\Users\user\Desktop\matam\EX3\TASK3\HW3\ThreadFuncs.c(203,20): error C2065: 'prime_components': undeclared identifier
+C:\Users\user\Desktop\matam\EX3\TASK3\HW3\ThreadFuncs.c(203,26): error C2109: subscript requires array or pointer type
+C:\Users\user\Desktop\matam\EX3\TASK3\HW3\ThreadFuncs.c(203,35): error C2065: 'prime': undeclared identifier
+C:\Users\user\Desktop\matam\EX3\TASK3\HW3\ThreadFuncs.c(208,2): error C2143: syntax error: missing ';' before '{'
+C:\Users\user\Desktop\matam\EX3\TASK3\HW3\ThreadFuncs.c(210,44): error C2065: 'number_of_components': undeclared identifier
+C:\Users\user\Desktop\matam\EX3\TASK3\HW3\ThreadFuncs.c(211,27): error C2065: 'prime_factors_by_format': undeclared identifier
+C:\Users\user\Desktop\matam\EX3\TASK3\HW3\ThreadFuncs.c(211,29): error C2109: subscript requires array or pointer type
+C:\Users\user\Desktop\matam\EX3\TASK3\HW3\ThreadFuncs.c(211,49): error C2065: 'prime_components': undeclared identifier
+C:\Users\user\Desktop\matam\EX3\TASK3\HW3\ThreadFuncs.c(211,51): error C2109: subscript requires array or pointer type
+C:\Users\user\Desktop\matam\EX3\TASK3\HW3\ThreadFuncs.c(212,27): error C2065: 'prime_factors_by_format': undeclared identifier
+C:\Users\user\Desktop\matam\EX3\TASK3\HW3\ThreadFuncs.c(212,33): error C2109: subscript requires array or pointer type
+C:\Users\user\Desktop\matam\EX3\TASK3\HW3\ThreadFuncs.c(215,26): error C2065: 'prime_factors_by_format': undeclared identifier
+C:\Users\user\Desktop\matam\EX3\TASK3\HW3\ThreadFuncs.c(215,28): error C2109: subscript requires array or pointer type
+C:\Users\user\Desktop\matam\EX3\TASK3\HW3\ThreadFuncs.c(215,48): error C2065: 'prime_components': undeclared identifier
+C:\Users\user\Desktop\matam\EX3\TASK3\HW3\ThreadFuncs.c(215,50): error C2109: subscript requires array or pointer type
+C:\Users\user\Desktop\matam\EX3\TASK3\HW3\ThreadFuncs.c(216,26): error C2065: 'prime_factors_by_format': undeclared identifier
+C:\Users\user\Desktop\matam\EX3\TASK3\HW3\ThreadFuncs.c(216,32): error C2109: subscript requires array or pointer type
+C:\Users\user\Desktop\matam\EX3\TASK3\HW3\ThreadFuncs.c(219,64): error C2143: syntax error: missing ';' before '{'
+C:\Users\user\Desktop\matam\EX3\TASK3\HW3\ThreadFuncs.c(220,55): error C2065: 'number': undeclared identifier
+C:\Users\user\Desktop\matam\EX3\TASK3\HW3\ThreadFuncs.c(220,80): error C2065: 'prime_factors_by_format': undeclared identifier
+C:\Users\user\Desktop\matam\EX3\TASK3\HW3\ThreadFuncs.c(220,10): warning C4477: 'printf' : format string '%s' requires an argument of type 'char *', but variadic argument 2 has type 'int'
+C:\Users\user\Desktop\matam\EX3\TASK3\HW3\ThreadFuncs.c(220,10): warning C4313: 'printf': '%s' in format string conflicts with argument 2 of type 'int'
+C:\Users\user\Desktop\matam\EX3\TASK3\HW3\ThreadFuncs.c(8): fatal error C1075: '{': no matching token found
+  Generating Code...

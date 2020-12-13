@@ -7,11 +7,77 @@
 DWORD WINAPI read(LPVOID lpParam)
 {
 	int ret_val1 = 0;
+	int i = 0, number_of_components = 0;
+	char* line;
 	parssing_data* params;
 	HANDLE InputHandle;
+	DWORD* PositionAfterSet = 0;
+	DWORD* distance = 0;
 	params = (parssing_data*)lpParam;
 	HANDLE input_file;
 	printf("Hello from thread num %d, I am reader \n", GetCurrentThreadId());
+	int* array_positions = NULL;
+	int* numbers = NULL;
+	int* prime_components[30] = { 0 };
+	char* prime_factors_by_format = NULL;
+	char** array_of_prime_factors_by_format = NULL;
+	array_of_prime_factors_by_format = (char**)malloc((sizeof(char*)) * ((int)params->number_of_lines));
+	prime_factors_by_format = (char*)malloc((sizeof(char*)) * ((int)params->number_of_lines));
+	array_positions = (int*)malloc((sizeof(int)) * ((int)params->number_of_lines));//not sure about this casting
+	//why should it be uli ?
+	numbers = (int*)malloc((sizeof(int)) * ((int)params->number_of_lines));//not sure about this casting
+	//why should it be uli ? 
+	if (NULL == array_positions || NULL == numbers || prime_factors_by_format || array_of_prime_factors_by_format) {
+		printf("memory allocation failed");
+		return -1;
+	}
+	for (i = 0; i < params->number_of_lines; i++) {
+		array_positions = pop(params->fifo);
+	}
+	ret_val1 = OpenFileWrap(params->input_path, OPEN_EXISTING, &input_file);
+	if (ret_val1 != SUCCESS)
+	{
+		return FAILAD_TO_OPEN_FILE;
+	}
+	for (i = 0; i < params->number_of_lines; i++) {
+		ret_val1 = SetFilePointerWrap(input_file, array_positions[i], FILE_BEGIN, NULL);
+		if (ret_val1 != SUCCESS)
+		{
+			return ret_val1;
+		}
+		read_lock(params->lock);
+		ReadLine(input_file, &line);//in the function definition line should be char **. why?
+		release_read(params->lock);
+		ret_val1 = CheakIsAnumber(line);
+		if (ret_val1 != SUCCESS) {
+			return ret_val1;
+		}
+		numbers[i] = atoi(line);
+	}
+	free(array_positions);
+	for (i = 0; i < params->number_of_lines; i++) {
+		number_of_components = FindPrimeComponets(numbers[i], prime_components);
+		FormatNumberString(prime_components, prime_factors_by_format, number_of_components);
+		distance += number_of_components * 2; //that is the size of each string : we count numbers,commas and '\0'
+		strcpy(array_of_prime_factors_by_format[i], prime_factors_by_format[i]);
+	}
+	ret_val1 = SetFilePointerWrap(input_file, array_positions[i], FILE_BEGIN, PositionAfterSet);
+	if (ret_val1 != SUCCESS)
+	{
+		return ret_val1;
+	}
+	for (i = 0; i < params->number_of_lines; i++) {
+
+	}
+
+}
+
+
+
+
+
+
+
 
 
 	/// ---------TO-DO ---------
@@ -75,65 +141,65 @@ DWORD WINAPI read(LPVOID lpParam)
 	//DWORD num_of_bytes_read;
 	//ReadFileWrap(params->end_pos, input_file, my_file_buff,&num_of_bytes_read);
 	//printf("%s\n\n", my_file_buff);
-	return SUCCESS;
-}
+	//return SUCCESS;
+//}
 
 
-int Createmultiplethreads(parssing_data* p_params,uli num_of_threads)
-{
-	int ret_val = 0;
-	int ret_val2 = 0;
-	int num_of_lines = p_params->number_of_lines;
-	HANDLE* p_thread_handles = (HANDLE * )calloc(num_of_threads, sizeof(HANDLE)); // each cell in the array, contains params for thread
-	ret_val=CheckAlocation(p_thread_handles);
-	if (ret_val != SUCCESS)
-	{
-		goto free4;
-	}
-	DWORD* p_thread_ids = (DWORD * )calloc(num_of_threads, sizeof(DWORD)); // each cell in the array, contains params for thread
-	CheckAlocation(p_thread_ids);
-	if (ret_val != SUCCESS)
-	{
-		goto free3;
-	}
-	parssing_data** thread_params = (parssing_data**)calloc(num_of_threads, sizeof(parssing_data*));// array to contain: functions params for each thread
-	CheckAlocation(thread_params);
-	if (ret_val != SUCCESS)
-	{
-		goto free2;
-	}
-	int num_threads_to_add_more_line = num_of_lines % num_of_threads;
-	uli lines_per_thread = (num_of_lines / num_of_threads);
-	short add_one_more_line = 1;
-	for (int i = 0; i < num_of_threads; i++)
-	{
-		if (i == num_threads_to_add_more_line)
-			add_one_more_line = 0;
-		thread_params[i] = (parssing_data*)calloc(1, sizeof(parssing_data));
-		ret_val = CheckAlocation(thread_params[i]);
-		if (ret_val != SUCCESS)
-			goto free1;
-		thread_params[i]->fifo = p_params->fifo;
-		thread_params[i]->input_path = p_params->input_path;
-		thread_params[i]->lock= p_params->lock;
-		thread_params[i]->number_of_lines = lines_per_thread + add_one_more_line;
-		ret_val = CreateThreadSimple(read, (LPVOID)thread_params[i], &p_thread_ids[i], &p_thread_handles[i]);
-		if (ret_val != SUCCESS)
-			goto free1;
-	}
+//int Createmultiplethreads(parssing_data* p_params,uli num_of_threads)
+//{
+	//int ret_val = 0;
+	//int ret_val2 = 0;
+	//int num_of_lines = p_params->number_of_lines;
+	//HANDLE* p_thread_handles = (HANDLE * )calloc(num_of_threads, sizeof(HANDLE)); // each cell in the array, contains params for thread
+	//ret_val=CheckAlocation(p_thread_handles);
+	//if (ret_val != SUCCESS)
+	//{
+	//	goto free4;
+	//}
+	//DWORD* p_thread_ids = (DWORD * )calloc(num_of_threads, sizeof(DWORD)); // each cell in the array, contains params for thread
+	//CheckAlocation(p_thread_ids);
+	//if (ret_val != SUCCESS)
+	//{
+		//goto free3;
+	//}
+	//parssing_data** thread_params = (parssing_data**)calloc(num_of_threads, sizeof(parssing_data*));// array to contain: functions params for each thread
+	//CheckAlocation(thread_params);
+	//if (ret_val != SUCCESS)
+	//{
+		//goto free2;
+	//}
+	//int num_threads_to_add_more_line = num_of_lines % num_of_threads;
+	//uli lines_per_thread = (num_of_lines / num_of_threads);
+	//short add_one_more_line = 1;
+	//for (int i = 0; i < num_of_threads; i++)
+	//{
+		//if (i == num_threads_to_add_more_line)
+			//add_one_more_line = 0;
+		//thread_params[i] = (parssing_data*)calloc(1, sizeof(parssing_data));
+		//ret_val = CheckAlocation(thread_params[i]);
+		//if (ret_val != SUCCESS)
+		///	goto free1;
+		//thread_params[i]->fifo = p_params->fifo;
+		//thread_params[i]->input_path = p_params->input_path;
+		//thread_params[i]->lock= p_params->lock;
+		//thread_params[i]->number_of_lines = lines_per_thread + add_one_more_line;
+		//ret_val = CreateThreadSimple(read, (LPVOID)thread_params[i], &p_thread_ids[i], &p_thread_handles[i]);
+		//if (ret_val != SUCCESS)
+		//	goto free1;
+	//}
 	//WAIT THERS WILL FINISH 
-	ret_val = WaitForMultipleObjectsWrap(num_of_threads, p_thread_handles, TIMEOUT_IN_MILLISECONDS, TRUE);
+	//ret_val = WaitForMultipleObjectsWrap(num_of_threads, p_thread_handles, TIMEOUT_IN_MILLISECONDS, TRUE);
 	//FREE
-free1: 
-	FreeHandelsArray(p_thread_handles, num_of_threads);
-	p_thread_handles = 0;
-	FreeArray(thread_params, num_of_threads);
-	thread_params = 0;
-free2:	free(p_thread_ids);
-free3:	if (p_thread_handles!=0)
-		free(p_thread_handles);
-free4:	return ret_val;
-}
+//free1: 
+	//FreeHandelsArray(p_thread_handles, num_of_threads);
+	//p_thread_handles = 0;
+	//FreeArray(thread_params, num_of_threads);
+	//thread_params = 0;
+//free2:	free(p_thread_ids);
+//free3:	if (p_thread_handles!=0)
+//		free(p_thread_handles);
+//free4:	return ret_val;
+//}
 
  int CreateThreadSimple(LPTHREAD_START_ROUTINE p_start_routine,
 		LPVOID p_thread_parameters,
