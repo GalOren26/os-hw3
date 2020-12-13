@@ -28,6 +28,4 @@ DWORD WINAPI read(LPVOID lpParam);
 //(max prime factor is 30  couse  num <2^30)
  int FindPrimeComponets(int prime, int* OUT prime_components);
  //format thr string that print the prime factors. 
- void FormatNumberString(int* prime_components, char* OUT prime_factors_by_format, int number_of_components);
-//funcionallity: this function prints the prime components by the specified format 
- void printByFormat(int number, char* prime_factors_by_format);
+ int FormatNumberString(int* prime_components, char** OUT prime_factors_by_format, int number_of_components,int number);

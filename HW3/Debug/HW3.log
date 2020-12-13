@@ -1,5 +1,2 @@
-﻿  ThreadFuncs.c
-C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\ThreadFuncs.c(13,9): warning C4101: 'input_file': unreferenced local variable
-C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\ThreadFuncs.c(11,9): warning C4101: 'InputHandle': unreferenced local variable
-C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\HW3\ThreadFuncs.c(61,20): warning C4018: '<': signed/unsigned mismatch
-  HW3.vcxproj -> C:\Users\Eran\Desktop\MasterDeg\Os\HW3\TASK3\Debug\HW3.exe
+﻿  main.c
+  HW3.vcxproj -> C:\Users\user\Desktop\matam\EX3\TASK3\Debug\HW3.exe

@@ -290,34 +290,24 @@ return SUCCESS;
 		return SUCCESS;
 	}
 
-	int SetEndOfFileWarp(LPCSTR output_path, uli end_pos, DWORD mode)
+	//handle ,len  
+	int SetEndOfFileWarp(HANDLE  input_file, uli offset_len,int mode )
 	{
-		HANDLE output_file;
 		int ret_val = 0;
-		int ret_val2 = 0;
-		OpenFileWrap(output_path, CREATE_ALWAYS, &output_file);
-		ret_val = CheakHandle(output_file);
-		//TODO
-		if (ret_val != SUCCESS)
-		{
-			return ret_val;
-		}
+		uli position_in_file = 0;
 		// set EOF at the end of the input file 
-		ret_val = SetFilePointer(output_file, end_pos,NULL, mode);
+		ret_val = SetFilePointer(input_file, offset_len,&position_in_file, mode);
 		if (ret_val == INVALID_SET_FILE_POINTER)
 		{
 			printf("problem with set file-pointer %d \n", GetLastError());
-			CloseHandleWrap(output_file);
 			return ret_val;
 		}
-		ret_val = SetEndOfFile(output_file);
+		ret_val = SetEndOfFile(input_file);
 		if (ret_val==0)
 		{
 			printf("error with set eof ,error code %d", GetLastError());
-		}
-		ret_val2 = CloseHandleWrap(output_file);
-		if (ret_val == 0 || ret_val2 != SUCCESS)
 			return ret_val;
+		}
 		return SUCCESS;
 	}
 

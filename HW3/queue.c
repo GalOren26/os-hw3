@@ -69,14 +69,14 @@ int pop( Queue* queue)
         return INT_MIN;
     int ErrorValue = WaitForSingleObjectWrap(queue->mutex_fifo, TIMEOUT_IN_MILLISECONDS);
     if (ErrorValue != SUCCESS)
-        return ErrorValue;
+        return INT_MIN;
     int item = queue->array[queue->front];
     queue->front = (queue->front + 1)
         % queue->capacity;
     queue->size = queue->size - 1;
     ErrorValue = ReleaseMutexeWrap(queue->mutex_fifo);
     if (ErrorValue != SUCCESS)
-        return ErrorValue;
+        return INT_MIN;
     return item;
 }
 

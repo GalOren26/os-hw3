@@ -6,70 +6,127 @@
 
 DWORD WINAPI read(LPVOID lpParam)
 {
+
 	int ret_val1 = 0;
-	int i = 0, number_of_components = 0;
-	char* line;
 	parssing_data* params;
-	HANDLE InputHandle;
-	DWORD* PositionAfterSet = 0;
-	DWORD* distance = 0;
-	params = (parssing_data*)lpParam;
 	HANDLE input_file;
+	params = (parssing_data*)lpParam;
 	printf("Hello from thread num %d, I am reader \n", GetCurrentThreadId());
-	int* array_positions = NULL;
-	int* numbers = NULL;
-	int* prime_components[30] = { 0 };
-	char* prime_factors_by_format = NULL;
-	char** array_of_prime_factors_by_format = NULL;
-	array_of_prime_factors_by_format = (char**)malloc((sizeof(char*)) * ((int)params->number_of_lines));
-	prime_factors_by_format = (char*)malloc((sizeof(char*)) * ((int)params->number_of_lines));
-	array_positions = (int*)malloc((sizeof(int)) * ((int)params->number_of_lines));//not sure about this casting
-	//why should it be uli ?
-	numbers = (int*)malloc((sizeof(int)) * ((int)params->number_of_lines));//not sure about this casting
-	//why should it be uli ? 
-	if (NULL == array_positions || NULL == numbers || prime_factors_by_format || array_of_prime_factors_by_format) {
-		printf("memory allocation failed");
-		return -1;
+
+	uli* array_positions = (uli*)malloc((sizeof(int)) * ((uli)params->number_of_lines));//not sure about this casting
+	ret_val1 = CheckAlocation(array_positions);
+	if (ret_val1 != SUCCESS)
+		return ret_val1;
+
+	for (int i = 0; i < params->number_of_lines; i++) {
+		array_positions[i] = pop(params->fifo);
+		if (array_positions[i] == INT_MIN)
+			return POP_PROBLEM;
 	}
-	for (i = 0; i < params->number_of_lines; i++) {
-		array_positions = pop(params->fifo);
-	}
+
 	ret_val1 = OpenFileWrap(params->input_path, OPEN_EXISTING, &input_file);
 	if (ret_val1 != SUCCESS)
 	{
 		return FAILAD_TO_OPEN_FILE;
 	}
-	for (i = 0; i < params->number_of_lines; i++) {
+
+
+	uli* numbers = (uli*)malloc((sizeof(uli)) * ((uli)params->number_of_lines));
+	ret_val1 = CheckAlocation(numbers);
+	if (ret_val1 != SUCCESS)
+		return ret_val1;
+
+
+	char* line;
+	for (int i = 0; i < params->number_of_lines; i++) {
 		ret_val1 = SetFilePointerWrap(input_file, array_positions[i], FILE_BEGIN, NULL);
 		if (ret_val1 != SUCCESS)
 		{
 			return ret_val1;
 		}
 		read_lock(params->lock);
-		ReadLine(input_file, &line);//in the function definition line should be char **. why?
+		ReadLine(input_file, &line);
 		release_read(params->lock);
 		ret_val1 = CheakIsAnumber(line);
 		if (ret_val1 != SUCCESS) {
 			return ret_val1;
 		}
 		numbers[i] = atoi(line);
+		free(line);
 	}
 	free(array_positions);
-	for (i = 0; i < params->number_of_lines; i++) {
-		number_of_components = FindPrimeComponets(numbers[i], prime_components);
-		FormatNumberString(prime_components, prime_factors_by_format, number_of_components);
-		distance += number_of_components * 2; //that is the size of each string : we count numbers,commas and '\0'
-		strcpy(array_of_prime_factors_by_format[i], prime_factors_by_format[i]);
-	}
-	ret_val1 = SetFilePointerWrap(input_file, array_positions[i], FILE_BEGIN, PositionAfterSet);
+
+
+	//free numbers ,array_of_prime_factors_string,prime_factors_string
+
+	char** array_of_prime_factors_string = (char**)malloc((sizeof(char*)) * ((int)params->number_of_lines));
+	ret_val1 = CheckAlocation(array_of_prime_factors_string);
 	if (ret_val1 != SUCCESS)
-	{
 		return ret_val1;
-	}
-	for (i = 0; i < params->number_of_lines; i++) {
 
-	}
+	char* prime_factors_string = NULL;
+	int* prime_components[30] = { 0 };//cant be more as exaplained  in find prime componnents
+	int number_of_components = 0;
 
+	int counter = 0;
+	for (int i = 0; i < params->number_of_lines; i++) {
+		number_of_components = FindPrimeComponets(numbers[i], prime_components);
+		ret_val1=FormatNumberString(prime_components, &prime_factors_string, number_of_components, numbers[i]);
+		if (ret_val1 != SUCCESS)
+			return ret_val1;
+		array_of_prime_factors_string[i] = prime_factors_string;
+		counter += strlen(array_of_prime_factors_string[i]);
+	}
+	free(numbers);
+	uli current_poistion;
+	ret_val1=SetFilePointerWrap(input_file,0, FILE_END,&current_poistion);
+	if (ret_val1 != SUCCESS)
+		return ret_val1;
+	lock_write(params->lock);
+	ret_val1=SetEndOfFileWarp(input_file, counter, FILE_END);
+	if (ret_val1 != SUCCESS)
+		return ret_val1;
+	ret_val1=SetFilePointerWrap(input_file, current_poistion, FILE_BEGIN, NULL);
+	if (ret_val1 != SUCCESS)
+		return ret_val1;
+	for (int i = 0; i < params->number_of_lines; i++)
+	{
+		ret_val1=WriteFileWrap(input_file, array_of_prime_factors_string[i], strlen(array_of_prime_factors_string[i]));
+		if (ret_val1 != SUCCESS)
+			return ret_val1;
+	}
+	release_write(params->lock);
+	ret_val1=FreeArray(array_of_prime_factors_string,params->number_of_lines);
+	if (ret_val1 != SUCCESS)
+		return ret_val1;
+	return SUCCESS;
+}
+
+
+int FormatNumberString(int* prime_components, char** OUT prime_factors_by_format, int number_of_components,int number )
+{
+	const int max_len_component_string = 10;
+	const int comma_digit = 2;// ",digidt" 
+	const int end_of_string = 3;// /r/n/0
+	int i = 0;
+	char* tmp_string = "The prime factors of %d are: ";
+	//--int-string--len (string)->big_strin
+	int val = (int)strlen(tmp_string) + (int)(number_of_components * comma_digit * max_len_component_string) + end_of_string;
+	char* str = (char*)calloc(val, sizeof(char));
+	int poistion = strlen(tmp_string);
+	memcpy(str, tmp_string, poistion);
+	for (int i = 0; i < number_of_components; i++)
+	{
+		sprintf_s(str + poistion, poistion, "%d", prime_components[i]);
+		poistion = strlen(str);
+		str[poistion++] = ',';
+	}
+	str[poistion - 1] = '\r';
+	str[poistion] = '\n';
+	str[poistion + 1] = '\0';
+	sprintf_s(str, strlen(str), str, number);
+	*prime_factors_by_format = str;
+	return SUCCESS;
 }
 
 
@@ -145,61 +202,61 @@ DWORD WINAPI read(LPVOID lpParam)
 //}
 
 
-//int Createmultiplethreads(parssing_data* p_params,uli num_of_threads)
-//{
-	//int ret_val = 0;
-	//int ret_val2 = 0;
-	//int num_of_lines = p_params->number_of_lines;
-	//HANDLE* p_thread_handles = (HANDLE * )calloc(num_of_threads, sizeof(HANDLE)); // each cell in the array, contains params for thread
-	//ret_val=CheckAlocation(p_thread_handles);
-	//if (ret_val != SUCCESS)
-	//{
-	//	goto free4;
-	//}
-	//DWORD* p_thread_ids = (DWORD * )calloc(num_of_threads, sizeof(DWORD)); // each cell in the array, contains params for thread
-	//CheckAlocation(p_thread_ids);
-	//if (ret_val != SUCCESS)
-	//{
-		//goto free3;
-	//}
-	//parssing_data** thread_params = (parssing_data**)calloc(num_of_threads, sizeof(parssing_data*));// array to contain: functions params for each thread
-	//CheckAlocation(thread_params);
-	//if (ret_val != SUCCESS)
-	//{
-		//goto free2;
-	//}
-	//int num_threads_to_add_more_line = num_of_lines % num_of_threads;
-	//uli lines_per_thread = (num_of_lines / num_of_threads);
-	//short add_one_more_line = 1;
-	//for (int i = 0; i < num_of_threads; i++)
-	//{
-		//if (i == num_threads_to_add_more_line)
-			//add_one_more_line = 0;
-		//thread_params[i] = (parssing_data*)calloc(1, sizeof(parssing_data));
-		//ret_val = CheckAlocation(thread_params[i]);
-		//if (ret_val != SUCCESS)
-		///	goto free1;
-		//thread_params[i]->fifo = p_params->fifo;
-		//thread_params[i]->input_path = p_params->input_path;
-		//thread_params[i]->lock= p_params->lock;
-		//thread_params[i]->number_of_lines = lines_per_thread + add_one_more_line;
-		//ret_val = CreateThreadSimple(read, (LPVOID)thread_params[i], &p_thread_ids[i], &p_thread_handles[i]);
-		//if (ret_val != SUCCESS)
-		//	goto free1;
-	//}
+int Createmultiplethreads(parssing_data* p_params,uli num_of_threads)
+{
+	int ret_val = 0;
+	int ret_val2 = 0;
+	int num_of_lines = p_params->number_of_lines;
+	HANDLE* p_thread_handles = (HANDLE * )calloc(num_of_threads, sizeof(HANDLE)); // each cell in the array, contains params for thread
+	ret_val=CheckAlocation(p_thread_handles);
+	if (ret_val != SUCCESS)
+	{
+		goto free4;
+	}
+	DWORD* p_thread_ids = (DWORD * )calloc(num_of_threads, sizeof(DWORD)); // each cell in the array, contains params for thread
+	CheckAlocation(p_thread_ids);
+	if (ret_val != SUCCESS)
+	{
+		goto free3;
+	}
+	parssing_data** thread_params = (parssing_data**)calloc(num_of_threads, sizeof(parssing_data*));// array to contain: functions params for each thread
+	CheckAlocation(thread_params);
+	if (ret_val != SUCCESS)
+	{
+		goto free2;
+	}
+	int num_threads_to_add_more_line = num_of_lines % num_of_threads;
+	uli lines_per_thread = (num_of_lines / num_of_threads);
+	short add_one_more_line = 1;
+	for (int i = 0; i < num_of_threads; i++)
+	{
+		if (i == num_threads_to_add_more_line)
+			add_one_more_line = 0;
+		thread_params[i] = (parssing_data*)calloc(1, sizeof(parssing_data));
+		ret_val = CheckAlocation(thread_params[i]);
+		if (ret_val != SUCCESS)
+			goto free1;
+		thread_params[i]->fifo = p_params->fifo;
+		thread_params[i]->input_path = p_params->input_path;
+		thread_params[i]->lock= p_params->lock;
+		thread_params[i]->number_of_lines = lines_per_thread + add_one_more_line;
+		ret_val = CreateThreadSimple(read, (LPVOID)thread_params[i], &p_thread_ids[i], &p_thread_handles[i]);
+		if (ret_val != SUCCESS)
+			goto free1;
+	}
 	//WAIT THERS WILL FINISH 
-	//ret_val = WaitForMultipleObjectsWrap(num_of_threads, p_thread_handles, TIMEOUT_IN_MILLISECONDS, TRUE);
+	ret_val = WaitForMultipleObjectsWrap(num_of_threads, p_thread_handles, TIMEOUT_IN_MILLISECONDS, TRUE);
 	//FREE
-//free1: 
-	//FreeHandelsArray(p_thread_handles, num_of_threads);
-	//p_thread_handles = 0;
-	//FreeArray(thread_params, num_of_threads);
-	//thread_params = 0;
-//free2:	free(p_thread_ids);
-//free3:	if (p_thread_handles!=0)
-//		free(p_thread_handles);
-//free4:	return ret_val;
-//}
+free1: 
+	FreeHandelsArray(p_thread_handles, num_of_threads);
+	p_thread_handles = 0;
+	FreeArray(thread_params, num_of_threads);
+	thread_params = 0;
+free2:	free(p_thread_ids);
+free3:	if (p_thread_handles!=0)
+		free(p_thread_handles);
+free4:	return ret_val;
+}
 
  int CreateThreadSimple(LPTHREAD_START_ROUTINE p_start_routine,
 		LPVOID p_thread_parameters,
@@ -259,18 +316,13 @@ DWORD WINAPI read(LPVOID lpParam)
 	 }
 	 return index;
  }
- void FormatNumberString(int* prime_components, char* OUT prime_factors_by_format, int number_of_components)
- {
-	 int i = 0;
-	 for (int i = 0; i < number_of_components - 1; i++) {
-		 prime_factors_by_format[i] = prime_components[i] + '0';
-		 prime_factors_by_format[i + 1] = ',';
-		 i++;
-	 }
-	 prime_factors_by_format[i] = prime_components[i] + '0';
-	 prime_factors_by_format[i + 1] = '\0';
- }
 
- void printByFormat(int number, char* prime_factors_by_format) {
-	 printf("The prime factors of %d are: %s\r\n", number, prime_factors_by_format);
- }
+	// for (int i = 0; i < number_of_components - 1; i++) { 
+	//	 prime_factors_by_format[i] = stoi(prime_components[i]);  
+	//	 prime_factors_by_format[i + 1] = ',';
+	//	 i++;
+	// }
+	// prime_factors_by_format[i] = prime_components[i] + '0';
+	// prime_factors_by_format[i + 1] = '\0';
+ //}
+

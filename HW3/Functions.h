@@ -27,7 +27,7 @@ if it does not manage to read it exits with the last error*/
 int  ReadFileWrap(DWORD len, HANDLE file, char* my_file_buff, DWORD* NumberOfBytesRead);
 
 // set EOF at the end of the input file 
-int SetEndOfFileWarp(LPCSTR output_path, uli end_pos, DWORD mode);
+int SetEndOfFileWarp(HANDLE  input_file, uli offset_len, int mode);
 
 /*A wrap for the setfilepointer function. the function gets as an input the handle of the file,
 and it moves the file pointer by "pos" bytes acording to the mode given as an input */

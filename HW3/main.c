@@ -36,7 +36,6 @@ int main(int argc, char* argv[])
 		return ret_val1;
 	parssing_data params = { TasksPoistions ,argv[2],num_of_threads ,lock };
 	ret_val1=Createmultiplethreads(&params, num_of_threads);
-	int prime = 0;
 	//we can send pointer_to prime to a function that reads the file line by line
 	//and that way to initialize prime
 	//int* pointer_to_prime = &prime;
