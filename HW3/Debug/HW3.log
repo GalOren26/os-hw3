@@ -1,2 +1,14 @@
-﻿  main.c
-  HW3.vcxproj -> C:\Users\user\Desktop\matam\EX3\TASK3\Debug\HW3.exe
+﻿  Functions.c
+  Lock.c
+  main.c
+  queue.c
+  ThreadFuncs.c
+C:\Users\Gal\Desktop\MasterDeg\Os\hw3\HW3\TASK3\HW3\ThreadFuncs.c(20,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Gal\Desktop\MasterDeg\Os\hw3\HW3\TASK3\HW3\ThreadFuncs.c(40,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Gal\Desktop\MasterDeg\Os\hw3\HW3\TASK3\HW3\ThreadFuncs.c(92,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Gal\Desktop\MasterDeg\Os\hw3\HW3\TASK3\HW3\ThreadFuncs.c(127,56): warning C4133: 'function': incompatible types - from 'const int *' to 'const char *'
+C:\Users\Gal\Desktop\MasterDeg\Os\hw3\HW3\TASK3\HW3\ThreadFuncs.c(128,32): warning C4133: 'function': incompatible types - from 'const int *' to 'const char *'
+C:\Users\Gal\Desktop\MasterDeg\Os\hw3\HW3\TASK3\HW3\ThreadFuncs.c(113,1): warning C4133: 'initializing': incompatible types - from 'char [7]' to 'const int *'
+C:\Users\Gal\Desktop\MasterDeg\Os\hw3\HW3\TASK3\HW3\ThreadFuncs.c(255,20): warning C4018: '<': signed/unsigned mismatch
+  Generating Code...
+  HW3.vcxproj -> C:\Users\Gal\Desktop\MasterDeg\Os\hw3\HW3\TASK3\Debug\HW3.exe

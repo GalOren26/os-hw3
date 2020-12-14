@@ -322,6 +322,40 @@ return SUCCESS;
 		return SUCCESS;
 	}
 
+
+	//-------------------strings 
+	int  convert_int_to_str(int num, char** OUT str)
+	{
+		int ret_val = 0;
+		int counter = find_len_number(num);
+		char* my_str = (char*)calloc(counter + 1, sizeof(char));
+		ret_val = CheckAlocation(my_str);
+		if (ret_val != SUCCESS)
+		{
+			return ret_val;
+		}
+		my_str[counter] = '\0';
+		for (int i = 1;i <= counter; i++)
+		{
+			my_str[counter - i] = num % 10 + '0';
+			num /= 10;
+		}
+		*str = my_str;
+		return SUCCESS;
+	}
+	int find_len_number(int num)
+	{
+		int counter = 0;
+		while (num != 0)
+		{
+			num /= 10;
+			counter++;
+		}
+		return counter;
+	}
+
+
+
 	//int find_dest_path(const char* source_path,OUT char ** dest_out,int opreation  )
 	//{
 		/* find the dest path of where to save the decrypted.txt  ootput file rather source path is absulte or realative

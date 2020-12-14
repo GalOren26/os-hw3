@@ -8,6 +8,7 @@ int InitializeLock(uli num_of_threads,Lock** OUT my_lock)
 	 if (ret_val != SUCCESS)
 		 return ret_val;
 	 (*my_lock)->readers = 0;
+
 	 ret_val = CreateMutexWrap(FALSE, &(*my_lock)->readers_mutex);
 	 if (ret_val != SUCCESS)
 		 return ret_val;

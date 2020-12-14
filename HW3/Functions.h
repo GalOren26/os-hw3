@@ -88,6 +88,9 @@ int ReleaseSemphoreWrap(HANDLE semphore, int lReleaseCount);
 
 int ReleaseMutexeWrap(HANDLE mutex);
 
+//-------------------strings 
+int  convert_int_to_str(int num, char** OUT str);
+int find_len_number(int num);
 
 
 

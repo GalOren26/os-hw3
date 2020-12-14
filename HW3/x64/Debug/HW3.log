@@ -1,16 +1,19 @@
-﻿  main.c
+﻿  Lock.c
   ThreadFuncs.c
-C:\Users\user\Desktop\matam\EX3\TASK3\HW3\ThreadFuncs.c(37,10): warning C4033: 'read' must return a value
-C:\Users\user\Desktop\matam\EX3\TASK3\HW3\ThreadFuncs.c(39,16): warning C4018: '<': signed/unsigned mismatch
-C:\Users\user\Desktop\matam\EX3\TASK3\HW3\ThreadFuncs.c(47,16): warning C4018: '<': signed/unsigned mismatch
-C:\Users\user\Desktop\matam\EX3\TASK3\HW3\ThreadFuncs.c(63,16): warning C4018: '<': signed/unsigned mismatch
-C:\Users\user\Desktop\matam\EX3\TASK3\HW3\ThreadFuncs.c(64,73): warning C4047: 'function': 'int *' differs in levels of indirection from 'int *[30]'
-C:\Users\user\Desktop\matam\EX3\TASK3\HW3\ThreadFuncs.c(64,73): warning C4024: 'FindPrimeComponets': different types for formal and actual parameter 2
-C:\Users\user\Desktop\matam\EX3\TASK3\HW3\ThreadFuncs.c(65,38): warning C4047: 'function': 'int *' differs in levels of indirection from 'int *[30]'
-C:\Users\user\Desktop\matam\EX3\TASK3\HW3\ThreadFuncs.c(65,38): warning C4024: 'FormatNumberString': different types for formal and actual parameter 1
-C:\Users\user\Desktop\matam\EX3\TASK3\HW3\ThreadFuncs.c(67,73): warning C4047: 'function': 'const char *' differs in levels of indirection from 'char'
-C:\Users\user\Desktop\matam\EX3\TASK3\HW3\ThreadFuncs.c(67,73): warning C4024: 'strcpy': different types for formal and actual parameter 2
-C:\Users\user\Desktop\matam\EX3\TASK3\HW3\ThreadFuncs.c(74,16): warning C4018: '<': signed/unsigned mismatch
-C:\Users\user\Desktop\matam\EX3\TASK3\HW3\ThreadFuncs.c(67,3): error C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-C:\Users\user\Desktop\matam\EX3\TASK3\HW3\ThreadFuncs.c(13,9): warning C4101: 'InputHandle': unreferenced local variable
+C:\Users\Gal\Desktop\MasterDeg\Os\hw3\HW3\TASK3\HW3\ThreadFuncs.c(20,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Gal\Desktop\MasterDeg\Os\hw3\HW3\TASK3\HW3\ThreadFuncs.c(40,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Gal\Desktop\MasterDeg\Os\hw3\HW3\TASK3\HW3\ThreadFuncs.c(77,54): warning C4267: '+=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Gal\Desktop\MasterDeg\Os\hw3\HW3\TASK3\HW3\ThreadFuncs.c(92,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Gal\Desktop\MasterDeg\Os\hw3\HW3\TASK3\HW3\ThreadFuncs.c(94,112): warning C4267: 'function': conversion from 'size_t' to 'DWORD', possible loss of data
+C:\Users\Gal\Desktop\MasterDeg\Os\hw3\HW3\TASK3\HW3\ThreadFuncs.c(126,29): warning C4267: '+=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Gal\Desktop\MasterDeg\Os\hw3\HW3\TASK3\HW3\ThreadFuncs.c(127,56): warning C4133: 'function': incompatible types - from 'const int *' to 'const char *'
+C:\Users\Gal\Desktop\MasterDeg\Os\hw3\HW3\TASK3\HW3\ThreadFuncs.c(128,32): warning C4133: 'function': incompatible types - from 'const int *' to 'const char *'
+C:\Users\Gal\Desktop\MasterDeg\Os\hw3\HW3\TASK3\HW3\ThreadFuncs.c(128,33): warning C4267: '+=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Gal\Desktop\MasterDeg\Os\hw3\HW3\TASK3\HW3\ThreadFuncs.c(132,25): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Gal\Desktop\MasterDeg\Os\hw3\HW3\TASK3\HW3\ThreadFuncs.c(113,1): warning C4133: 'initializing': incompatible types - from 'char [7]' to 'const int *'
+C:\Users\Gal\Desktop\MasterDeg\Os\hw3\HW3\TASK3\HW3\ThreadFuncs.c(120,1): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Gal\Desktop\MasterDeg\Os\hw3\HW3\TASK3\HW3\ThreadFuncs.c(123,1): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Gal\Desktop\MasterDeg\Os\hw3\HW3\TASK3\HW3\ThreadFuncs.c(255,20): warning C4018: '<': signed/unsigned mismatch
+  main.c
   Generating Code...
+  HW3.vcxproj -> C:\Users\Gal\Desktop\MasterDeg\Os\hw3\HW3\TASK3\x64\Debug\HW3.exe

@@ -6,7 +6,6 @@
 
 DWORD WINAPI read(LPVOID lpParam)
 {
-
 	int ret_val1 = 0;
 	parssing_data* params;
 	HANDLE input_file;
@@ -65,11 +64,11 @@ DWORD WINAPI read(LPVOID lpParam)
 		return ret_val1;
 
 	char* prime_factors_string = NULL;
-	int* prime_components[30] = { 0 };//cant be more as exaplained  in find prime componnents
+	int prime_components[30] = { 0 };//cant be more as exaplained  in find prime componnents
 	int number_of_components = 0;
 
 	int counter = 0;
-	for (int i = 0; i < params->number_of_lines; i++) {
+	for (uli i = 0; i < params->number_of_lines; i++) {
 		number_of_components = FindPrimeComponets(numbers[i], prime_components);
 		ret_val1=FormatNumberString(prime_components, &prime_factors_string, number_of_components, numbers[i]);
 		if (ret_val1 != SUCCESS)
@@ -79,10 +78,11 @@ DWORD WINAPI read(LPVOID lpParam)
 	}
 	free(numbers);
 	uli current_poistion;
+	lock_write(params->lock);
 	ret_val1=SetFilePointerWrap(input_file,0, FILE_END,&current_poistion);
 	if (ret_val1 != SUCCESS)
 		return ret_val1;
-	lock_write(params->lock);
+	printf("im start to write thread num %d\n", GetCurrentThreadId());
 	ret_val1=SetEndOfFileWarp(input_file, counter, FILE_END);
 	if (ret_val1 != SUCCESS)
 		return ret_val1;
@@ -95,6 +95,7 @@ DWORD WINAPI read(LPVOID lpParam)
 		if (ret_val1 != SUCCESS)
 			return ret_val1;
 	}
+	printf("im end  to write thread num %d\n", GetCurrentThreadId());
 	release_write(params->lock);
 	ret_val1=FreeArray(array_of_prime_factors_string,params->number_of_lines);
 	if (ret_val1 != SUCCESS)
@@ -105,16 +106,26 @@ DWORD WINAPI read(LPVOID lpParam)
 
 int FormatNumberString(int* prime_components, char** OUT prime_factors_by_format, int number_of_components,int number )
 {
-	const int max_len_component_string = 10;
+	const int max_len_component_string = 10;//999,999,999
+	char* num_str; 
+	convert_int_to_str(number, &num_str);
+	char* tmp_string1= "The prime factors of ";
+	const* tmp_string2 = " are: ";
 	const int comma_digit = 2;// ",digidt" 
 	const int end_of_string = 3;// /r/n/0
 	int i = 0;
-	char* tmp_string = "The prime factors of %d are: ";
+	int len_number= find_len_number(number);
 	//--int-string--len (string)->big_strin
-	int val = (int)strlen(tmp_string) + (int)(number_of_components * comma_digit * max_len_component_string) + end_of_string;
+	//size to allocate 
+	int val = strlen(tmp_string1) + strlen(tmp_string1) + strlen(num_str);
+	val+= (int)(number_of_components * comma_digit * max_len_component_string) + end_of_string;
 	char* str = (char*)calloc(val, sizeof(char));
-	int poistion = strlen(tmp_string);
-	memcpy(str, tmp_string, poistion);
+	int poistion = strlen(tmp_string1);
+	memcpy(str, tmp_string1, poistion);
+	memcpy(str + poistion, num_str, strlen(num_str));
+	poistion += strlen(num_str);
+	memcpy(str + poistion, tmp_string2, strlen(tmp_string2));
+	poistion += strlen(tmp_string2);
 	for (int i = 0; i < number_of_components; i++)
 	{
 		sprintf_s(str + poistion, poistion, "%d", prime_components[i]);
@@ -123,8 +134,8 @@ int FormatNumberString(int* prime_components, char** OUT prime_factors_by_format
 	}
 	str[poistion - 1] = '\r';
 	str[poistion] = '\n';
-	str[poistion + 1] = '\0';
-	sprintf_s(str, strlen(str), str, number);
+	str[poistion+1] = '\0';
+	//sprintf_s(str, strlen(str), str, num_str);//-2 couse replace %d
 	*prime_factors_by_format = str;
 	return SUCCESS;
 }
@@ -132,6 +143,19 @@ int FormatNumberString(int* prime_components, char** OUT prime_factors_by_format
 
 
 
+
+//
+//char* convert_int_to_str(int num, char**OUT str)
+//{
+//	int counter= find_len_number(num);
+//	char* my_str= (char*)calloc(counter+1, sizeof(char));
+//	my_str[counter] = '\0';
+//	for (int i = 0;i < counter; i++)
+//	{
+//		my_str[counter - i] = num % 10; 
+//		num / 10; 
+//	}
+//}
 
 
 
@@ -313,6 +337,7 @@ free4:	return ret_val;
 	 }
 	 if (prime > 2) {
 		 prime_components[index] = prime;
+		 index += 1;
 	 }
 	 return index;
  }
