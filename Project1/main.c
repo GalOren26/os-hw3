@@ -4,15 +4,14 @@
 #include <string.h>
 #include <stdlib.h>
 int FormatNumberString(int* prime_components, char** OUT prime_factors_by_format, int number_of_components);
+void convert_int_to_str(int num, char** OUT str);
 int main()
 {
 
-	int x []= { 2, 3, 5, 7, 15, 233, 789 };
+	int x = 12347890;
 	char* string;
-	int number_of_components = 7;
-	FormatNumberString(x, &string, number_of_components);
-	sprintf_s(string,strlen(string),string,5);
-	printf(string);
+	convert_int_to_str(x, &string);
+	printf("%s", string);
 }
 
 
@@ -44,3 +43,15 @@ int FormatNumberString(int* prime_components, char** OUT prime_factors_by_format
 	*prime_factors_by_format = str;
 	return SUCCESS;
 }
+
+int find_len_number(int num)
+{
+	int counter = 0;
+	while (num != 0)
+	{
+		num /= 10;
+		counter++;
+	}
+	return counter;
+}
+
