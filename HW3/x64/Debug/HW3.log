@@ -1,19 +1,16 @@
-﻿  Lock.c
-  ThreadFuncs.c
-C:\Users\Gal\Desktop\MasterDeg\Os\hw3\HW3\TASK3\HW3\ThreadFuncs.c(20,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\Gal\Desktop\MasterDeg\Os\hw3\HW3\TASK3\HW3\ThreadFuncs.c(40,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\Gal\Desktop\MasterDeg\Os\hw3\HW3\TASK3\HW3\ThreadFuncs.c(77,54): warning C4267: '+=': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\Gal\Desktop\MasterDeg\Os\hw3\HW3\TASK3\HW3\ThreadFuncs.c(92,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\Gal\Desktop\MasterDeg\Os\hw3\HW3\TASK3\HW3\ThreadFuncs.c(94,112): warning C4267: 'function': conversion from 'size_t' to 'DWORD', possible loss of data
-C:\Users\Gal\Desktop\MasterDeg\Os\hw3\HW3\TASK3\HW3\ThreadFuncs.c(126,29): warning C4267: '+=': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\Gal\Desktop\MasterDeg\Os\hw3\HW3\TASK3\HW3\ThreadFuncs.c(127,56): warning C4133: 'function': incompatible types - from 'const int *' to 'const char *'
-C:\Users\Gal\Desktop\MasterDeg\Os\hw3\HW3\TASK3\HW3\ThreadFuncs.c(128,32): warning C4133: 'function': incompatible types - from 'const int *' to 'const char *'
-C:\Users\Gal\Desktop\MasterDeg\Os\hw3\HW3\TASK3\HW3\ThreadFuncs.c(128,33): warning C4267: '+=': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\Gal\Desktop\MasterDeg\Os\hw3\HW3\TASK3\HW3\ThreadFuncs.c(132,25): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\Gal\Desktop\MasterDeg\Os\hw3\HW3\TASK3\HW3\ThreadFuncs.c(113,1): warning C4133: 'initializing': incompatible types - from 'char [7]' to 'const int *'
-C:\Users\Gal\Desktop\MasterDeg\Os\hw3\HW3\TASK3\HW3\ThreadFuncs.c(120,1): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\Gal\Desktop\MasterDeg\Os\hw3\HW3\TASK3\HW3\ThreadFuncs.c(123,1): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\Gal\Desktop\MasterDeg\Os\hw3\HW3\TASK3\HW3\ThreadFuncs.c(255,20): warning C4018: '<': signed/unsigned mismatch
-  main.c
-  Generating Code...
-  HW3.vcxproj -> C:\Users\Gal\Desktop\MasterDeg\Os\hw3\HW3\TASK3\x64\Debug\HW3.exe
+﻿  ThreadFuncs.c
+C:\Users\user\Desktop\matam\EX3\TASK3\HW3\ThreadFuncs.c(20,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\user\Desktop\matam\EX3\TASK3\HW3\ThreadFuncs.c(48,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\user\Desktop\matam\EX3\TASK3\HW3\ThreadFuncs.c(99,54): warning C4267: '+=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\user\Desktop\matam\EX3\TASK3\HW3\ThreadFuncs.c(128,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\user\Desktop\matam\EX3\TASK3\HW3\ThreadFuncs.c(130,112): warning C4267: 'function': conversion from 'size_t' to 'DWORD', possible loss of data
+C:\Users\user\Desktop\matam\EX3\TASK3\HW3\ThreadFuncs.c(177,29): warning C4267: '+=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\user\Desktop\matam\EX3\TASK3\HW3\ThreadFuncs.c(178,56): warning C4133: 'function': incompatible types - from 'const int *' to 'const char *'
+C:\Users\user\Desktop\matam\EX3\TASK3\HW3\ThreadFuncs.c(179,32): warning C4133: 'function': incompatible types - from 'const int *' to 'const char *'
+C:\Users\user\Desktop\matam\EX3\TASK3\HW3\ThreadFuncs.c(179,33): warning C4267: '+=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\user\Desktop\matam\EX3\TASK3\HW3\ThreadFuncs.c(183,25): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\user\Desktop\matam\EX3\TASK3\HW3\ThreadFuncs.c(159,1): warning C4133: 'initializing': incompatible types - from 'char [7]' to 'const int *'
+C:\Users\user\Desktop\matam\EX3\TASK3\HW3\ThreadFuncs.c(166,1): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\user\Desktop\matam\EX3\TASK3\HW3\ThreadFuncs.c(174,1): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\user\Desktop\matam\EX3\TASK3\HW3\ThreadFuncs.c(307,20): warning C4018: '<': signed/unsigned mismatch
+  HW3.vcxproj -> C:\Users\user\Desktop\matam\EX3\TASK3\x64\Debug\HW3.exe

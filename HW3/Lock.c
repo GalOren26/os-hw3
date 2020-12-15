@@ -1,28 +1,36 @@
 #include "Lock.h"
 
-int InitializeLock(uli num_of_threads,Lock** OUT my_lock)
+int InitializeLock(uli num_of_threads, Lock** OUT my_lock)
 {
 	int ret_val = 0;
-	 (*my_lock) = calloc(1, sizeof(Lock));
-	 ret_val = CheckAlocation((*my_lock));
-	 if (ret_val != SUCCESS)
-		 return ret_val;
-	 (*my_lock)->readers = 0;
+	(*my_lock) = calloc(1, sizeof(Lock));
+	ret_val = CheckAlocation((*my_lock));
+	if (ret_val != SUCCESS)
+		return ret_val;
+	(*my_lock)->readers = 0;
 
-	 ret_val = CreateMutexWrap(FALSE, &(*my_lock)->readers_mutex);
-	 if (ret_val != SUCCESS)
-		 return ret_val;
-	 ret_val = CreateSemphoreWrap(num_of_threads, &(*my_lock)->asset_in_use, 1);
-	 if (ret_val != SUCCESS)
-		 return ret_val;
-	 ret_val = CreateMutexWrap(FALSE, &(*my_lock)->turnstile);
-	 if (ret_val != SUCCESS)
-		 return ret_val;
+	ret_val = CreateMutexWrap(FALSE, &(*my_lock)->readers_mutex);
+	if (ret_val != SUCCESS) {
+		free(*my_lock);
+		return ret_val;
+	}
+	ret_val = CreateSemphoreWrap(num_of_threads, &(*my_lock)->asset_in_use, 1);
+	if (ret_val != SUCCESS) {
+		ReleaseMutexeWrap((*my_lock)->readers_mutex);
+		free(*my_lock);
+		return ret_val;
+	}
+	ret_val = CreateMutexWrap(FALSE, &(*my_lock)->turnstile);
+	if (ret_val != SUCCESS) {
+		ReleaseMutexeWrap((*my_lock)->readers_mutex);
+		ReleaseSemphoreWrap((*my_lock)->asset_in_use, 1);
+		free(*my_lock);
+		return ret_val;
+	}
 	return SUCCESS;
 }
 
-void read_lock(Lock* lock)
-{
+void read_lock(Lock* lock) {
 	lock->ErrorValue = WaitForSingleObjectWrap(lock->turnstile, TIMEOUT_IN_MILLISECONDS);
 	if (lock->ErrorValue != SUCCESS)
 		return;

@@ -83,7 +83,7 @@ return SUCCESS;
 	{
 		if (my_handle == INVALID_HANDLE_VALUE)
 		{
-			printf_s("INVALID_HANDLE. error code %d", GetLastError());
+			printf_s("INVALID_HANDLE. error code %d\n", GetLastError());
 			return  GetLastError();
 		}
 		return SUCCESS;
@@ -137,7 +137,7 @@ return SUCCESS;
 			if (num_of_bytes_read < NUM_OF_BYTES_TO_READ)
 				eof_found = TRUE;
 			// if not found in the for we need to read more "NUM_OF_BYTES_TO_READ" bytes
-			for (; line_temp[curser_index] != 0 && line_temp[curser_index] != '\n'; curser_index++);
+			for (; line_temp[curser_index] != 0 && line_temp[curser_index] != '\n'; curser_index++);///what is this for loop?
 			if (line_temp[curser_index] == '\n')
 			{
 				ret_val = SetFilePointerWrap(input_file, start_pos+curser_index+1, FILE_BEGIN,NULL);
@@ -151,6 +151,7 @@ return SUCCESS;
 				ret_val = CheckAlocation(line_temp);
 				if (ret_val != SUCCESS)
 				{
+					free(line_temp);
 					return ret_val;
 				}
 				memcpy(*line, line_temp, curser_index);
@@ -171,7 +172,8 @@ return SUCCESS;
 				memset(line_temp + curser_index, 0, NUM_OF_BYTES_TO_READ + 1);
 			}
 		}
-			return NO_NEW_LINE;
+
+		return NO_NEW_LINE;
 	}
 
 	int OpenFileWrap( LPCSTR str, DWORD mode,HANDLE * OUT hFile)
@@ -353,6 +355,7 @@ return SUCCESS;
 		}
 		return counter;
 	}
+
 
 
 

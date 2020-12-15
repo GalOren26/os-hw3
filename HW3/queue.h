@@ -12,6 +12,7 @@ typedef struct  {
     int* array;
     HANDLE mutex_fifo; 
 }Queue;
+
 int InitializeQueue(unsigned int capacity, Queue** OUT queue);
 int isFull( Queue* queue);
 int isEmpty( Queue* queue);
@@ -19,3 +20,5 @@ int push( Queue* queue, int item);
 int pop( Queue* queue);
 int Top( Queue* queue);
 int fill_fifo(Queue* queue, HANDLE  input_file, int num_of_lines);
+int destroy_queue(Queue** queue);
+//int checkInitializeQueue(Queue* queue, int value);

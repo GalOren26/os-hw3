@@ -1,4 +1,5 @@
 #include "queue.h"
+#include "ThreadFuncs.h"
 
 
 
@@ -22,11 +23,15 @@ int InitializeQueue(unsigned int capacity, Queue** OUT queue)
         (*queue)->capacity * sizeof(int));
     if (NULL == (*queue)->array) {
         printf("memory allocation failed");
+        free(queue);
         return MEMORY_ALLOCATION_FAILURE;
     }
     int ErrorValue = CreateMutexWrap(FALSE,& (*queue)->mutex_fifo);
-    if (ErrorValue != SUCCESS)
+    if (ErrorValue != SUCCESS) {
+        free((*queue)->array);
+        free(queue);
         return ErrorValue;
+    }
     return SUCCESS;
 }
 
@@ -107,3 +112,24 @@ int fill_fifo(Queue* queue, HANDLE input_file, int num_of_lines)
     }
     return SUCCESS;
 }
+
+int destroy_queue(Queue **queue) 
+{
+    int ret_val = 0;
+    free((*queue)->array);
+    free((*queue));
+    (*queue) = NULL;
+    return SUCCESS;
+}
+
+//int checkInitializeQueue(Queue* queue, int value) {
+//    if (value != SUCCESS && value != MEMORY_ALLOCATION_FAILURE) {
+//        free(queue->array);
+//        free(queue);
+//        return PROBLEM_OPEN_MUTEX;
+//    }
+//    if (value != SUCCESS) {
+//        return MEMORY_ALLOCATION_FAILURE;
+//    }
+//    return SUCCESS;
+//}

@@ -20,12 +20,16 @@ DWORD WINAPI read(LPVOID lpParam)
 	for (int i = 0; i < params->number_of_lines; i++) {
 		array_positions[i] = pop(params->fifo);
 		if (array_positions[i] == INT_MIN)
+		{
+			free(array_positions);
 			return POP_PROBLEM;
+		}
 	}
 
 	ret_val1 = OpenFileWrap(params->input_path, OPEN_EXISTING, &input_file);
 	if (ret_val1 != SUCCESS)
 	{
+		free(array_positions);
 		return FAILAD_TO_OPEN_FILE;
 	}
 
@@ -33,7 +37,11 @@ DWORD WINAPI read(LPVOID lpParam)
 	uli* numbers = (uli*)malloc((sizeof(uli)) * ((uli)params->number_of_lines));
 	ret_val1 = CheckAlocation(numbers);
 	if (ret_val1 != SUCCESS)
+	{
+		CloseHandleWrap(input_file);
+		free(array_positions);
 		return ret_val1;
+	}
 
 
 	char* line;
@@ -41,6 +49,9 @@ DWORD WINAPI read(LPVOID lpParam)
 		ret_val1 = SetFilePointerWrap(input_file, array_positions[i], FILE_BEGIN, NULL);
 		if (ret_val1 != SUCCESS)
 		{
+			CloseHandleWrap(input_file);
+			free(numbers);
+			free(array_positions);
 			return ret_val1;
 		}
 		read_lock(params->lock);
@@ -48,20 +59,26 @@ DWORD WINAPI read(LPVOID lpParam)
 		release_read(params->lock);
 		ret_val1 = CheakIsAnumber(line);
 		if (ret_val1 != SUCCESS) {
+			CloseHandleWrap(input_file);
+			free(numbers);
+			free(array_positions);
 			return ret_val1;
 		}
 		numbers[i] = atoi(line);
 		free(line);
 	}
 	free(array_positions);
-
+	
 
 	//free numbers ,array_of_prime_factors_string,prime_factors_string
 
 	char** array_of_prime_factors_string = (char**)malloc((sizeof(char*)) * ((int)params->number_of_lines));
 	ret_val1 = CheckAlocation(array_of_prime_factors_string);
 	if (ret_val1 != SUCCESS)
+	{
+		CloseHandleWrap(input_file);
 		return ret_val1;
+	}
 
 	char* prime_factors_string = NULL;
 	int prime_components[30] = { 0 };//cant be more as exaplained  in find prime componnents
@@ -72,40 +89,69 @@ DWORD WINAPI read(LPVOID lpParam)
 		number_of_components = FindPrimeComponets(numbers[i], prime_components);
 		ret_val1=FormatNumberString(prime_components, &prime_factors_string, number_of_components, numbers[i]);
 		if (ret_val1 != SUCCESS)
+		{
+			CloseHandleWrap(input_file);
+			FreeArray(array_of_prime_factors_string, params->number_of_lines);
+			free(numbers);
 			return ret_val1;
+		}
 		array_of_prime_factors_string[i] = prime_factors_string;
 		counter += strlen(array_of_prime_factors_string[i]);
 	}
 	free(numbers);
 	uli current_poistion;
+
+
 	lock_write(params->lock);
 	ret_val1=SetFilePointerWrap(input_file,0, FILE_END,&current_poistion);
 	if (ret_val1 != SUCCESS)
+	{
+		CloseHandleWrap(input_file);
+		FreeArray(array_of_prime_factors_string, params->number_of_lines);
 		return ret_val1;
+	}
 	printf("im start to write thread num %d\n", GetCurrentThreadId());
 	ret_val1=SetEndOfFileWarp(input_file, counter, FILE_END);
 	if (ret_val1 != SUCCESS)
+	{
+		CloseHandleWrap(input_file);
+		FreeArray(array_of_prime_factors_string, params->number_of_lines);
 		return ret_val1;
+	}
 	ret_val1=SetFilePointerWrap(input_file, current_poistion, FILE_BEGIN, NULL);
 	if (ret_val1 != SUCCESS)
+	{
+		CloseHandleWrap(input_file);
+		FreeArray(array_of_prime_factors_string, params->number_of_lines);
 		return ret_val1;
+	}
 	for (int i = 0; i < params->number_of_lines; i++)
 	{
 		ret_val1=WriteFileWrap(input_file, array_of_prime_factors_string[i], strlen(array_of_prime_factors_string[i]));
 		if (ret_val1 != SUCCESS)
+		{
+			CloseHandleWrap(input_file);
+			FreeArray(array_of_prime_factors_string, params->number_of_lines);
 			return ret_val1;
+		}
 	}
 	printf("im end  to write thread num %d\n", GetCurrentThreadId());
 	release_write(params->lock);
-	ret_val1=FreeArray(array_of_prime_factors_string,params->number_of_lines);
 	if (ret_val1 != SUCCESS)
+	{
+		CloseHandleWrap(input_file);
+		FreeArray(array_of_prime_factors_string, params->number_of_lines);
 		return ret_val1;
+	}
+	CloseHandleWrap(input_file);
+	FreeArray(array_of_prime_factors_string, params->number_of_lines);
 	return SUCCESS;
 }
 
 
 int FormatNumberString(int* prime_components, char** OUT prime_factors_by_format, int number_of_components,int number )
 {
+	int ret_val = 0;
 	const int max_len_component_string = 10;//999,999,999
 	char* num_str; 
 	convert_int_to_str(number, &num_str);
@@ -120,6 +166,11 @@ int FormatNumberString(int* prime_components, char** OUT prime_factors_by_format
 	int val = strlen(tmp_string1) + strlen(tmp_string1) + strlen(num_str);
 	val+= (int)(number_of_components * comma_digit * max_len_component_string) + end_of_string;
 	char* str = (char*)calloc(val, sizeof(char));
+	ret_val = CheckAlocation(str);
+	if (ret_val !=SUCCESS)
+	{
+		return ret_val;
+	}
 	int poistion = strlen(tmp_string1);
 	memcpy(str, tmp_string1, poistion);
 	memcpy(str + poistion, num_str, strlen(num_str));
@@ -137,6 +188,7 @@ int FormatNumberString(int* prime_components, char** OUT prime_factors_by_format
 	str[poistion+1] = '\0';
 	//sprintf_s(str, strlen(str), str, num_str);//-2 couse replace %d
 	*prime_factors_by_format = str;
+	free(num_str);
 	return SUCCESS;
 }
 
