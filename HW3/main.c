@@ -5,9 +5,18 @@
 #include "Lock.h"
 #include "queue.h" 
 #include <vld.h>
+
+
+//int main(int argc, char* argv[])
+//{
+
+//	CreateTestFiles (int argc, char* argv[])
+//	HWW3(int argc, char* argv[])
+//
+//}
+
 int main(int argc, char* argv[])
 {
-	
 	CheakArgs(argc, 5);
 	char* priority_path = argv[2];
 	int ret_val1 = 0;
