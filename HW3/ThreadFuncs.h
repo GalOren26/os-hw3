@@ -19,7 +19,7 @@ typedef struct
 int Createmultiplethreads(parssing_data* p_params,uli num_of_threads);
 
 //took from the Recritation, the wrap of create threads function.
-DWORD WINAPI read(LPVOID lpParam);
+DWORD WINAPI FindPrimes(LPVOID lpParam);
  int CreateThreadSimple(LPTHREAD_START_ROUTINE p_start_routine,
 	LPVOID p_thread_parameters,
 	LPDWORD p_thread_id, HANDLE* OUT thread_handle);
@@ -29,3 +29,8 @@ DWORD WINAPI read(LPVOID lpParam);
  int FindPrimeComponets(int prime, int* OUT prime_components);
  //format thr string that print the prime factors. 
  int FormatNumberString(int* prime_components, char** OUT prime_factors_by_format, int number_of_components,int number);
+ //read numbers from file  acording to arrat of positions line by line and store it numbers array
+ int ReadNumbersFromFileAcorrdingToArrayOfPositions(parssing_data* params, HANDLE INPUT_FILE, uli* array_positions, uli* numbers);
+ //set end of file to the end of file +number of charcters that current therad need to write ,count by counter
+   //return cursor to the previous "end of file" TO WRITE OPEARTION 
+ int SetEofAccordingToText(parssing_data* params, HANDLE input_file, char** array_of_prime_factors_string, int counter);

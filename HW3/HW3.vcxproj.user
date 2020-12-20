@@ -5,11 +5,11 @@
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <LocalDebuggerCommandArguments>Tasks.txt TasksPriorities.txt 3 3</LocalDebuggerCommandArguments>
+    <LocalDebuggerCommandArguments>Tasks_0_0.txt TasksPriorities_0_0.txt 215 40</LocalDebuggerCommandArguments>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <LocalDebuggerCommandArguments>Tasks.txt TasksPriorities.txt 3 3</LocalDebuggerCommandArguments>
+    <LocalDebuggerCommandArguments>Tasks_0_0.txt TasksPriorities_0_0.txt 215 40</LocalDebuggerCommandArguments>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
   </PropertyGroup>
 </Project>

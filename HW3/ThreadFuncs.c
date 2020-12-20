@@ -4,19 +4,18 @@
 #include <assert.h>
 #include < stdlib.h >
 
-DWORD WINAPI read(LPVOID lpParam)
+DWORD WINAPI FindPrimes(LPVOID lpParam)
 {
 	int ret_val1 = 0;
 	parssing_data* params;
 	HANDLE input_file;
 	params = (parssing_data*)lpParam;
-	printf("Hello from thread num %d, I am reader \n", GetCurrentThreadId());
-
-	uli* array_positions = (uli*)malloc((sizeof(int)) * ((uli)params->number_of_lines));//not sure about this casting
+	uli* array_positions = (uli*)malloc((sizeof(int)) * ((uli)params->number_of_lines));
 	ret_val1 = CheckAlocation(array_positions);
 	if (ret_val1 != SUCCESS)
 		return ret_val1;
 
+	//read numbers to buffer according to "number of lines"
 	for (int i = 0; i < params->number_of_lines; i++) {
 		array_positions[i] = pop(params->fifo);
 		if (array_positions[i] == INT_MIN)
@@ -25,15 +24,14 @@ DWORD WINAPI read(LPVOID lpParam)
 			return POP_PROBLEM;
 		}
 	}
-
+	//open tasks file and save the handle in "input_file"
 	ret_val1 = OpenFileWrap(params->input_path, OPEN_EXISTING, &input_file);
 	if (ret_val1 != SUCCESS)
 	{
 		free(array_positions);
 		return FAILAD_TO_OPEN_FILE;
 	}
-
-
+	//allocate array of numbers to store numbers from file
 	uli* numbers = (uli*)malloc((sizeof(uli)) * ((uli)params->number_of_lines));
 	ret_val1 = CheckAlocation(numbers);
 	if (ret_val1 != SUCCESS)
@@ -42,48 +40,32 @@ DWORD WINAPI read(LPVOID lpParam)
 		free(array_positions);
 		return ret_val1;
 	}
-
-
-	char* line;
-	for (int i = 0; i < params->number_of_lines; i++) {
-		ret_val1 = SetFilePointerWrap(input_file, array_positions[i], FILE_BEGIN, NULL);
-		if (ret_val1 != SUCCESS)
-		{
-			CloseHandleWrap(input_file);
-			free(numbers);
-			free(array_positions);
-			return ret_val1;
-		}
-		read_lock(params->lock);
-		ReadLine(input_file, &line);
-		release_read(params->lock);
-		ret_val1 = CheakIsAnumber(line);
-		if (ret_val1 != SUCCESS) {
-			CloseHandleWrap(input_file);
-			free(numbers);
-			free(array_positions);
-			return ret_val1;
-		}
-		numbers[i] = atoi(line);
-		free(line);
+	//read numbers from file  acording to arrat of positions line by line and store it numbers array
+	ret_val1=ReadNumbersFromFileAcorrdingToArrayOfPositions(params, input_file, array_positions, numbers);
+	if (ret_val1 != SUCCESS)
+	{
+		CloseHandleWrap(input_file);
+		free(numbers);
+		free(array_positions);
+		return ret_val1;
 	}
 	free(array_positions);
-	
 
-	//free numbers ,array_of_prime_factors_string,prime_factors_string
-
+	//alocate array of stings to print to file 
 	char** array_of_prime_factors_string = (char**)malloc((sizeof(char*)) * ((int)params->number_of_lines));
 	ret_val1 = CheckAlocation(array_of_prime_factors_string);
 	if (ret_val1 != SUCCESS)
 	{
 		CloseHandleWrap(input_file);
+		free(numbers);
 		return ret_val1;
 	}
 
+	//define primePcomponents array in size of 30(since it can't be more than 30 items, explained in prime components function
+	//decompose numbers to their's prime factors and create save array od strings to print later to file
 	char* prime_factors_string = NULL;
-	int prime_components[30] = { 0 };//cant be more as exaplained  in find prime componnents
+	int prime_components[30] = { 0 };
 	int number_of_components = 0;
-
 	int counter = 0;
 	for (uli i = 0; i < params->number_of_lines; i++) {
 		number_of_components = FindPrimeComponets(numbers[i], prime_components);
@@ -99,32 +81,18 @@ DWORD WINAPI read(LPVOID lpParam)
 		counter += strlen(array_of_prime_factors_string[i]);
 	}
 	free(numbers);
-	uli current_poistion;
+	
 
-
+	//start the write opeartion
 	lock_write(params->lock);
-	ret_val1=SetFilePointerWrap(input_file,0, FILE_END,&current_poistion);
+	ret_val1=SetEofAccordingToText(params, input_file, array_of_prime_factors_string, counter);	
 	if (ret_val1 != SUCCESS)
 	{
 		CloseHandleWrap(input_file);
 		FreeArray(array_of_prime_factors_string, params->number_of_lines);
 		return ret_val1;
 	}
-	printf("im start to write thread num %d\n", GetCurrentThreadId());
-	ret_val1=SetEndOfFileWarp(input_file, counter, FILE_END);
-	if (ret_val1 != SUCCESS)
-	{
-		CloseHandleWrap(input_file);
-		FreeArray(array_of_prime_factors_string, params->number_of_lines);
-		return ret_val1;
-	}
-	ret_val1=SetFilePointerWrap(input_file, current_poistion, FILE_BEGIN, NULL);
-	if (ret_val1 != SUCCESS)
-	{
-		CloseHandleWrap(input_file);
-		FreeArray(array_of_prime_factors_string, params->number_of_lines);
-		return ret_val1;
-	}
+	//write to file all lines
 	for (int i = 0; i < params->number_of_lines; i++)
 	{
 		ret_val1=WriteFileWrap(input_file, array_of_prime_factors_string[i], strlen(array_of_prime_factors_string[i]));
@@ -135,24 +103,17 @@ DWORD WINAPI read(LPVOID lpParam)
 			return ret_val1;
 		}
 	}
-	printf("im end  to write thread num %d\n", GetCurrentThreadId());
 	release_write(params->lock);
-	if (ret_val1 != SUCCESS)
-	{
-		CloseHandleWrap(input_file);
-		FreeArray(array_of_prime_factors_string, params->number_of_lines);
-		return ret_val1;
-	}
+	//free resources
 	CloseHandleWrap(input_file);
 	FreeArray(array_of_prime_factors_string, params->number_of_lines);
 	return SUCCESS;
 }
 
-
 int FormatNumberString(int* prime_components, char** OUT prime_factors_by_format, int number_of_components,int number )
 {
 	int ret_val = 0;
-	const int max_len_component_string = 10;//999,999,999
+	const int max_len_component_string = 10;
 	char* num_str; 
 	convert_int_to_str(number, &num_str);
 	char* tmp_string1= "The prime factors of ";
@@ -193,91 +154,6 @@ int FormatNumberString(int* prime_components, char** OUT prime_factors_by_format
 }
 
 
-
-
-
-//
-//char* convert_int_to_str(int num, char**OUT str)
-//{
-//	int counter= find_len_number(num);
-//	char* my_str= (char*)calloc(counter+1, sizeof(char));
-//	my_str[counter] = '\0';
-//	for (int i = 0;i < counter; i++)
-//	{
-//		my_str[counter - i] = num % 10; 
-//		num / 10; 
-//	}
-//}
-
-
-
-
-
-	/// ---------TO-DO ---------
-	/// allocate array_poistions of size of number lines --ret_val1=cheakaloocation () if ! success return ret_val1 ; free when not neede 
-	/// -for i in range(params->number_of_lines):
-	///			pop ( params->fifo) 
-	/// openfilewarp (params->input_path); cheak forfailure 
-	/// allocate array numbers  of numbers(int) size  of lines ; 
-	/// 
-	///	-for i in range(params->number_of_lines): 
-	///		setfilepointerwrap(arr[i]);
-	///		char* line;  
-	///		lock_read(params_lock)
-	///		readline(&line) 
-	/// 	realse_read(params_lock);
-	///		cheakisnumber(line) 
-	///		numbers[i]= atoi(line) 
-	///		free (array_poistions) ; 
-	/// 
-	/// array of char *  string of strings 
-	///	for i in range(params->number_of_lines):  
-	///		FindPrimeComponets ()
-	///		formatstringpeime() 
-	///		strings.append(string)  
-	///	
-	/// 	----expend file ---
-	/// var=  setfilepointer (end ) -parm that tak the sdistance from start 
-	/// set file pointer (end , size (all the strigns )
-	/// for i in range(params->number_of_lines):  
-	///		lock_write () 
-	///		writefilewrap
-	///		relasewrite 
-	/// 
-	/// 
-	/// 
-	///  
-	///		
-	/// 
-	/// 
-	/// 
-	/// 
-	/// 
-	/// 
-	/// 
-	/// 
-	/// 
-
-	//if (params->lock->readers == 1)
-	//{
-	//	release_read(params->lock);
-	//	if (params->lock->readers == 0)
-	//		lock_write(params->lock);
-	//}
-	//read_lock(params->lock);
-	//ret_val1=OpenFileWrap(params->input_path, OPEN_EXISTING, &input_file);
-	//if (ret_val1 != SUCCESS)
-	//{
-	//	return ret_val1;
-	//}
-	//char my_file_buff[100] = { 0 }; 
-	//DWORD num_of_bytes_read;
-	//ReadFileWrap(params->end_pos, input_file, my_file_buff,&num_of_bytes_read);
-	//printf("%s\n\n", my_file_buff);
-	//return SUCCESS;
-//}
-
-
 int Createmultiplethreads(parssing_data* p_params,uli num_of_threads)
 {
 	int ret_val = 0;
@@ -316,7 +192,7 @@ int Createmultiplethreads(parssing_data* p_params,uli num_of_threads)
 		thread_params[i]->input_path = p_params->input_path;
 		thread_params[i]->lock= p_params->lock;
 		thread_params[i]->number_of_lines = lines_per_thread + add_one_more_line;
-		ret_val = CreateThreadSimple(read, (LPVOID)thread_params[i], &p_thread_ids[i], &p_thread_handles[i]);
+		ret_val = CreateThreadSimple(FindPrimes, (LPVOID)thread_params[i], &p_thread_ids[i], &p_thread_handles[i]);
 		if (ret_val != SUCCESS)
 			goto free1;
 	}
@@ -372,8 +248,6 @@ free4:	return ret_val;
 
  int FindPrimeComponets(int prime, int* OUT prime_components)
  {
-	 //int n = 999999999;
-	 //int* arr[30] = { 0 };
 	 int index = 0;
 	 while (prime % 2 == 0) {
 		 prime_components[index] = 2;
@@ -394,12 +268,44 @@ free4:	return ret_val;
 	 return index;
  }
 
-	// for (int i = 0; i < number_of_components - 1; i++) { 
-	//	 prime_factors_by_format[i] = stoi(prime_components[i]);  
-	//	 prime_factors_by_format[i + 1] = ',';
-	//	 i++;
-	// }
-	// prime_factors_by_format[i] = prime_components[i] + '0';
-	// prime_factors_by_format[i + 1] = '\0';
- //}
+ int ReadNumbersFromFileAcorrdingToArrayOfPositions(parssing_data* params, HANDLE INPUT_FILE, uli* array_positions, uli* numbers)
+ {
+		 int ret_val1;
+		 char* line;
+	 for (int i = 0; i < params->number_of_lines; i++) {
+		 ret_val1 = SetFilePointerWrap(INPUT_FILE, array_positions[i], FILE_BEGIN, NULL);
+		 if (ret_val1 != SUCCESS)
+			 return ret_val1;
+		 read_lock(params->lock);
+		 ReadLine(INPUT_FILE, &line);
+		 release_read(params->lock);
+		 ret_val1 = CheakIsAnumber(line);
+		 if (ret_val1 != SUCCESS)
+			 return ret_val1;
+		 numbers[i] = atoi(line);
+		 free(line);
+	 }
+	return SUCCESS;
+ }
 
+ int SetEofAccordingToText(parssing_data* params, HANDLE input_file, char** array_of_prime_factors_string,int counter )
+ {
+	 int ret_val1 = 0;
+	 uli current_poistion;
+	 //set file pointer on the current eof 
+	 ret_val1 = SetFilePointerWrap(input_file, 0, FILE_END, &current_poistion);
+	 if (ret_val1 != SUCCESS)
+		 return ret_val1;
+
+	 //set end of file to the end of file +number of charcters that current therad need to write ,count by counter
+	 ret_val1 = SetEndOfFileWarp(input_file, counter, FILE_END);
+	 if (ret_val1 != SUCCESS)
+		 return ret_val1;
+
+	 //return cursor to the previous "end of file"
+	 ret_val1 = SetFilePointerWrap(input_file, current_poistion, FILE_BEGIN, NULL);
+	 if (ret_val1 != SUCCESS)
+		 return ret_val1;
+
+	 return SUCCESS;
+ }

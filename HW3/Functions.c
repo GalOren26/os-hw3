@@ -5,6 +5,9 @@
 
 
 // ******** valiation of data and parms ************ 
+	//input : input_file- argc- the number of arguments we got threw command line , expected_num_of_args- the number of arguments we expact to have
+	//output:number-none
+	//fuctionality : this function checks if we got the number of arguments we expacted
 
 	void CheakArgs(int argc,int excpted_num_of_args)
 {
@@ -19,6 +22,9 @@
 		exit(ERR_CODE_TOO_MANY_ARGUMENTS);
 	}
 }
+	//input : ptr- a pointer
+	//output:number-indicates whether the function succeeded or not
+	//fuctionality : this function checks it a pointer is valid or not
 
 	int valid_PTR(void* ptr )
 	{
@@ -29,6 +35,9 @@
 		}
 		return SUCCESS;
 	}
+	//input : handles - an array of handles. len - number of handles
+	//output:number-indicates whether the function succeeded or not
+	//fuctionality : this function closes all the handles in a file
 
 	int FreeHandelsArray(HANDLE* handels, int len)
 	{
@@ -47,6 +56,9 @@ if (handels != 0)
 free(handels);
 return SUCCESS;
 	}
+	//input :handle of a thread to wait for ,time_ms- time limitation to wait
+	//output:number-indicates whether the function succeeded or not
+	//fuctionality : this function wraps the windows-API function "waitForSingleObject" and checks if it succeeded or not
 
 	int WaitForSingleObjectWrap(HANDLE handle, uli time_ms)
 	{
@@ -58,7 +70,9 @@ return SUCCESS;
 		}
 		return SUCCESS;
 	}
-
+	//input :num_of_threads- the number of threads  ,handle_arr- an array of handles to threads,time_ms- time limitation to wait
+	//output:number-indicates whether the function succeeded or not
+	//fuctionality : this function wraps the windows-API function "waitFormultypleObjects" and checks if it succeeded or not
 	int WaitForMultipleObjectsWrap(uli num_of_threads, HANDLE* handle_arr, uli time_ms, BOOL bWaitAll)
 	{
 
@@ -70,7 +84,9 @@ return SUCCESS;
 		}
 		return SUCCESS;
 	}
-
+	//input :p_arr- a pointer 
+	//output:number-indicates whether the function succeeded or not
+	//fuctionality : this function checks if memory allocation succeeded
 	int  CheckAlocation(void* p_arr)
 	{
 		if (p_arr == NULL) {
@@ -79,6 +95,9 @@ return SUCCESS;
 		}
 		return SUCCESS;
 	}
+	//input :my_handle - a handle
+	//output:number-indicates whether the function succeeded or not
+	//fuctionality : this function checks if a handle is valid
 	int CheakHandle(HANDLE my_handle)
 	{
 		if (my_handle == INVALID_HANDLE_VALUE)
@@ -88,7 +107,9 @@ return SUCCESS;
 		}
 		return SUCCESS;
 	}
-
+	//input :str- a string form of a number
+	//output:number-indicates whether the function succeeded or not
+	//fuctionality : this function checks whether a string is a number or not
 	int CheakIsAnumber(char* str)
 	{
 		int ret_val = 0;
@@ -108,7 +129,9 @@ return SUCCESS;
 		return SUCCESS;
 	}
 	//****************File methods**************
-
+	//input :input_file- to read from, line - a buffer to read the line in to.
+	//output:number-indicates whether the function succeeded or not
+	//fuctionality : this function reads a line in to a buffer
 	int ReadLine(HANDLE input_file, char** OUT line)
 	{
 		BOOL eof_found = FALSE;
@@ -127,7 +150,6 @@ return SUCCESS;
 		{
 			return ret_val;
 		}
-
 		while (!eof_found)
 		{
 			DWORD num_of_bytes_read;
@@ -136,8 +158,7 @@ return SUCCESS;
 				return ret_val;
 			if (num_of_bytes_read < NUM_OF_BYTES_TO_READ)
 				eof_found = TRUE;
-			// if not found in the for we need to read more "NUM_OF_BYTES_TO_READ" bytes
-			for (; line_temp[curser_index] != 0 && line_temp[curser_index] != '\n'; curser_index++);///what is this for loop?
+			for (; line_temp[curser_index] != 0 && line_temp[curser_index] != '\n'; curser_index++);
 			if (line_temp[curser_index] == '\n')
 			{
 				ret_val = SetFilePointerWrap(input_file, start_pos+curser_index+1, FILE_BEGIN,NULL);
@@ -175,10 +196,11 @@ return SUCCESS;
 
 		return NO_NEW_LINE;
 	}
-
+	//input :mode - purpose we want to use the file,
+	//output:number-indicates whether the function succeeded or not
+	//fuctionality : this function wraps the windows API function createFileA and checks if it succeeded
 	int OpenFileWrap( LPCSTR str, DWORD mode,HANDLE * OUT hFile)
-	{
-		//CreateFileA wrap 
+	{ 
 		int ret_val = 0;
 		*hFile = CreateFileA(str, GENERIC_READ | GENERIC_WRITE, FILE_SHARE_READ| FILE_SHARE_WRITE, NULL, mode, FILE_ATTRIBUTE_NORMAL, NULL);
 		return CheakHandle(*hFile);
@@ -186,7 +208,6 @@ return SUCCESS;
 	
 	int CloseHandleWrap(HANDLE file)
 	{
-		//CloseHandle wrap 
 		BOOL  file_status = CloseHandle(file);
 		if (!file_status)
 		{
@@ -212,6 +233,9 @@ return SUCCESS;
 		free(arr);
 		return SUCCESS;
 	}
+	//input :max_count - for the semaphore object, semaphore - handle to semaphore, initialcount - number to start count from in the semaphore
+	//output:number-indicates whether the function succeeded or not
+	//fuctionality : this function wraps the windows API createSemaphoreA function
 	int CreateSemphoreWrap(int max_count, HANDLE* OUT semphore,int initialcount)
 	{
 		*semphore = CreateSemaphoreA(
@@ -227,7 +251,9 @@ return SUCCESS;
 		}
 		return SUCCESS;
 	}
-
+	//input :initialOwner- sets if it's lock after creation or not, mutex- handle to a mutex
+	//output:number-indicates whether the function succeeded or not
+	//fuctionality : this function wraps the windows API createMutexA function
 	int CreateMutexWrap(BOOL bInitialOwner, HANDLE* OUT mutex )
 	{
 
@@ -243,7 +269,9 @@ return SUCCESS;
 		}
 		return SUCCESS;
 	}
-
+	//input  semaphore - handle to semaphore, name- unique identifier to the semaphore
+	//output:number-indicates whether the function succeeded or not
+	//fuctionality : this function wraps the windows API openSemaphoreA function,and allows to open a semaphore
 	int OpenSemphoreWrap(HANDLE* OUT semphore, const char* name)
 	{
 		*semphore = OpenSemaphoreA(
@@ -258,7 +286,9 @@ return SUCCESS;
 		}
 		return SUCCESS;
 	}
-
+	//input  semaphore - handle to semaphore, name- unique identifier to the semaphore
+	//output:number-indicates whether the function succeeded or not
+	//fuctionality : this function wraps the windows API releasesemaphoreA function,and allows to release a semaphore
 	int ReleaseSemphoreWrap(HANDLE semphore, int lReleaseCount)
 	{
 		int wait_code = ReleaseSemaphore(semphore, lReleaseCount, NULL);
@@ -268,8 +298,10 @@ return SUCCESS;
 			return ERROR_RELEASE_SEMPHORE;
 		}
 		return SUCCESS;
-	}
-
+	};
+	//input:  mutex - handle to semaphore, name- unique identifier to the semaphore
+	//output:number-indicates whether the function succeeded or not
+	//fuctionality : this function wraps the windows API releasesemaphoreA function,and allows to release a semaphore
 	int ReleaseMutexeWrap(HANDLE mutex)
 	{
 		int wait_code = ReleaseMutex(mutex);
@@ -280,7 +312,9 @@ return SUCCESS;
 		}
 		return SUCCESS;
 	}
-	
+	//input: len-number of bytes to read, file- handle to the file, my_file_buff-a buffer to read the file in to. NumerOfBytesRead-the number of bytes was read
+	//output:number-indicates whether the function succeeded or not
+	//fuctionality : this function wraps the windows API ReadFile function
 	int  ReadFileWrap(DWORD len, HANDLE file,char* my_file_buff, DWORD* NumberOfBytesRead )
 	{
 		//WRAP TO ReadFile 
@@ -292,7 +326,9 @@ return SUCCESS;
 		return SUCCESS;
 	}
 
-	//handle ,len  
+	//input: input_file- the file we want to move it's pointer, offst_len-distance to move
+	//output:number-indicates whether the function succeeded or not
+	//fuctionality : this function wraps the windows API SetEndOfFile function 
 	int SetEndOfFileWarp(HANDLE  input_file, uli offset_len,int mode )
 	{
 		int ret_val = 0;
@@ -312,7 +348,9 @@ return SUCCESS;
 		}
 		return SUCCESS;
 	}
-
+	//input: hfile- handle to the file we wan to write to, ipbuffer- we write from it to the file, nNumberOfBytesToWrite- maximal number of bytes we want to write
+	//output:number-indicates whether the function succeeded or not
+	//fuctionality : this function wraps the windows API WriteFile function 
 	int WriteFileWrap(HANDLE hFile, LPCVOID lpBuffer, DWORD nNumberOfBytesToWrite)
 	{
 		DWORD lpNumberOfBytesRead = 0;
@@ -326,6 +364,10 @@ return SUCCESS;
 
 
 	//-------------------strings 
+	//input : num- the number we want to convert to it's string form, str-the string number will be kept in this variable
+	//output:number-indicates whether the function succeeded or not
+	//fuctionality : this function get's the string form of a int number
+
 	int  convert_int_to_str(int num, char** OUT str)
 	{
 		int ret_val = 0;
@@ -345,6 +387,9 @@ return SUCCESS;
 		*str = my_str;
 		return SUCCESS;
 	}
+	//input : num- number to find it's length
+	//output: num's length
+	//fuctionality : this function returns the number of digit's in "num|
 	int find_len_number(int num)
 	{
 		int counter = 0;
@@ -356,70 +401,10 @@ return SUCCESS;
 		return counter;
 	}
 
+	//input : input_file- the file we want to move it's ponter's position, DistanceToMove - number of chars to move,  FromWhereToMove- the start char to move from,
+	//output:number-indicates whether the function succeeded or not
+	//fuctionality : this function moves the file pointer to the designated location
 
-
-
-	//int find_dest_path(const char* source_path,OUT char ** dest_out,int opreation  )
-	//{
-		/* find the dest path of where to save the decrypted.txt  ootput file rather source path is absulte or realative
-put the result in dest ptr TO-do  free dest outside */
-		//char* dest;
-		//int ret_val = 0;
-		//ret_val = 0;
-		//char* p_abs_path = strrchr(source_path, '\\');
-		//char* p_explicit_file;
-		//if (opreation == ENCRYPT)
-		//{
-		//	p_explicit_file = "encrypted.txt";
-		//}
-		//else
-		//{
-		//	p_explicit_file = "decrypted.txt";
-		//}
-		//size_t explicit_file_len = strlen(p_explicit_file);
-		//size_t abs_path_len = p_abs_path == NULL ? 0 : p_abs_path - source_path;
-		//dest = calloc( explicit_file_len + abs_path_len + ADDITION_LEN_TO_PATH, sizeof(char));
-		//ret_val=CheckAlocation((void*)dest);
-		//if (ret_val != SUCCESS)
-		//	return ret_val;
-		//if (p_abs_path)
-		//{
-		//	memcpy(dest, source_path, abs_path_len);
-		//	dest[abs_path_len] = '\\';
-		//}
-		//strcat_s(dest, explicit_file_len + abs_path_len + ADDITION_LEN_TO_PATH, p_explicit_file);
-		//*dest_out = dest;
-		//return SUCCESS;
-	//}
-
-	//int CheckOperation(char* operation,int* modeflag)
-	//{	char enc[3] = "-e";
-	//	char dec[3] = "-d";
-	//	int ret_val = 0;
-	//	ret_val = valid_PTR(operation);
-	//	if (ret_val != SUCCESS)
-	//	{
-	//		return ret_val;
-	//	}
-	//	if (strchr(operation, 'e') != NULL && strchr(operation, 'd') != NULL)
-	//	{
-	//		printf("INVALID_NUMBER_OF_PARAMS");
-	//		return INVALID_NUMBER_OF_PARAMS;
-	//	}
-	//	if (strcmp(operation, enc) == 0)
-	//	{
-	//		*modeflag = ENCRYPT;
-	//
-	//	}
-	//	else if (strcmp(operation, dec) == 0)
-	//	{
-	//		*modeflag = DECRYPT;
-	//	}
-	//	else
-	//		return NOT_VALID_OPREATION;
-	//
-	//	return SUCCESS;
-	//}
 	int SetFilePointerWrap(HANDLE input_file, uli DistanceToMove, DWORD FromWhereToMove, DWORD* OUT PositionAfterSet)
 	{
 		DWORD retval;
@@ -437,63 +422,3 @@ put the result in dest ptr TO-do  free dest outside */
 		}
 		return SUCCESS;
 	}
-
-
-	//int setup_memory_menagment(MemoryTracker* OUT MemTracker)
-	//{
-	//	MemTracker->max_size = START_ALLOCATION_SIZE;
-	//	MemTracker->count = 0;
-	//	MemTracker->array_tracker = ((MemoryTrackerElement*)calloc(START_ALLOCATION_SIZE, sizeof(MemoryTrackerElement)));
-	//	return CheakAlocation(MemTracker->array_tracker);
-
-	//}
-
-	//int push_element_memory_mangment(MemoryTracker* MemTracker, MemoryTracker element)
-	//{
-	//	int ret_val = 0;
-	//	ret_val = valid_PTR(MemTracker);
-	//	if (ret_val != SUCCESS)
-	//	{
-	//		return ret_val;
-	//	}
-	//	if (MemTracker->count < MemTracker->max_size)
-	//	{
-	//		MemTracker->max_size *= 2;
-	//		MemTracker->array_tracker = (MemoryTracker*)realloc(MemTracker->array_tracker, sizeof(MemoryTracker) * sizeof(MemTracker->max_size));
-	//		ret_val = CheakAlocation(MemTracker->array_tracker);
-	//		if (ret_val != SUCCESS)
-	//		{
-	//			return ret_val;
-	//		}
-	//	}
-	//	MemTracker->array_tracker[MemTracker->count] = element;
-	//	MemTracker->count++;
-	//}
-
-	//void FreeAll(MemoryTracker* MemTracker)
-	//{
-	//	int ret_val = 0;
-	//	ret_val = valid_PTR(MemTracker);
-	//	if (ret_val != SUCCESS)
-	//	{
-	//		return ret_val;
-	//	}
-	//	for (int i = 0; i < MemTracker->count; i++)
-	//	{
-	//		if (MemTracker->array_tracker[i].array_handle == NULL)
-	//		{
-	//			continue;
-	//		}
-	//		if (MemTracker->array_tracker[i].type == ARRAY)
-	//		{
-	//			if (MemTracker->array_tracker[i].count == 1)
-	//				free(MemTracker->array_tracker[i].array_handle);
-	//			else
-	//			{
-	//				for (int j = 0; j < MemTracker->array_tracker[i].count; j++)
-	//					free(MemTracker->array_tracker[i].array_handle[i]);
-	//			}
-	//		}
-
-	//	}
-	//}

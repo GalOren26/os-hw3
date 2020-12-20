@@ -1,5 +1,4 @@
-  
-#include <stdio.h>
+ #include <stdio.h>
 #include <stdlib.h>
 #ifndef __Hard_coded_data 
 #define __Hard_coded_data 
@@ -92,18 +91,6 @@ int ReleaseMutexeWrap(HANDLE mutex);
 int  convert_int_to_str(int num, char** OUT str);
 int find_len_number(int num);
 
-
-
-
-
-
-
-
-
-//memory mengment 
-//int setup_memory_menagment(memorytracker* out memtracker);
-//int push_element_memory_mangment(memorytracker*  memtracker, memorytracker element);
-//int freeall(memorytracker * memory_traker);
 
 
 

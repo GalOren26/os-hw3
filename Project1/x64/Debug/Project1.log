@@ -1,5 +1,2 @@
-﻿  main.c
-C:\Users\Gal\Desktop\MasterDeg\Os\hw3\HW3\TASK3\Project1\main.c(39,25): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\Gal\Desktop\MasterDeg\Os\hw3\HW3\TASK3\Project1\main.c(34,1): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-main.obj : error LNK2019: unresolved external symbol convert_int_to_str referenced in function main
-C:\Users\Gal\Desktop\MasterDeg\Os\hw3\HW3\TASK3\x64\Debug\Project1.exe : fatal error LNK1120: 1 unresolved externals
+﻿main.obj : error LNK2019: unresolved external symbol convert_int_to_str referenced in function main
+C:\Users\user\Desktop\matam\EX3\TASK3\x64\Debug\Project1.exe : fatal error LNK1120: 1 unresolved externals

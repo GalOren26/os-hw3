@@ -1,0 +1,10 @@
+﻿  main.c
+C:\Users\user\Desktop\matam\EX3\TASK3\CreateTests\main.c(26,55): warning C4047: 'function': 'int **' differs in levels of indirection from 'int [6]'
+C:\Users\user\Desktop\matam\EX3\TASK3\CreateTests\main.c(26,55): warning C4024: 'write_to_tasks_file': different types for formal and actual parameter 2
+C:\Users\user\Desktop\matam\EX3\TASK3\CreateTests\main.c(10,6): warning C4101: 'temp_num1': unreferenced local variable
+C:\Users\user\Desktop\matam\EX3\TASK3\CreateTests\main.c(10,17): warning C4101: 'temp_num2': unreferenced local variable
+  test_functions.c
+C:\Users\user\Desktop\matam\EX3\TASK3\CreateTests\test_functions.c(54,49): warning C4028: formal parameter 2 different from declaration
+C:\Users\user\Desktop\matam\EX3\TASK3\CreateTests\test_functions.c(102,18): warning C4244: 'function': conversion from 'time_t' to 'unsigned int', possible loss of data
+  Generating Code...
+  CreateTests.vcxproj -> C:\Users\user\Desktop\matam\EX3\TASK3\Debug\CreateTests.exe
