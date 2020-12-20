@@ -1,2 +1,0 @@
-﻿main.obj : error LNK2019: unresolved external symbol convert_int_to_str referenced in function main
-C:\Users\user\Desktop\matam\EX3\TASK3\x64\Debug\Project1.exe : fatal error LNK1120: 1 unresolved externals
