@@ -3,6 +3,9 @@
 #include "Lock.h"
 #include "queue.h" 
 
+//authors : Gal Oren-206232506 , yarden haskin- 308407907
+// exercise 3
+
 int main(int argc, char* argv[])
 {
 	CheakArgs(argc, 5);
